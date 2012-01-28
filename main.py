@@ -33,15 +33,20 @@ class Shapescape:
     def game_loop(self):
         clock = pygame.time.Clock()
         do_continue = True
+
+        #Initialize
         SCORE = Scoreboard()
         Timer = CountDown()
         shape = Octagon()
+
         control = Control()
         shape_layer = pygame.sprite.RenderPlain((shape))      
+
         
         # Render the boid swarm
         while do_continue:
-            Timer.Milli -= clock.tick(30) # fps
+            delta = clock.tick(30) # fps
+            Timer.Milli -= delta;
 
             # Catch input event
             for event in pygame.event.get():
@@ -52,7 +57,7 @@ class Shapescape:
                               
         
             # Update 
-            shape_layer.update()
+            shape_layer.update(delta)
             if control.moveLeft:
                 shape.rect.move_ip(-control.moverate, 0)
             if control.moveRight:
