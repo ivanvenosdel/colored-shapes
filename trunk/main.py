@@ -6,9 +6,9 @@ from actors import Octagon
 from ui.Countdown import CountDown
 from ui.Scoreboard import Scoreboard
 from control import Control
-
 from logic import Logic
 from graphics import Graphics
+
 import imageutils
 
 class Shapescape:
@@ -27,9 +27,6 @@ class Shapescape:
         self.screen = pygame.display.set_mode((self.win_width, self.win_height))
         pygame.display.set_caption('Shapescape')
 
-        # Create empty background
-        self.background = imageutils.load_image("BG_1.png")[0].convert()
-        
         pygame.mouse.set_visible(1)
         
     # Continuesly renders the boid swarm
@@ -43,14 +40,10 @@ class Shapescape:
         self.control = Control()
         #TEMP
         self.player = Octagon()
-        self.player2 = Octagon()
-        self.player2.rect.move_ip((150, 150))
-        shape_layer = pygame.sprite.RenderPlain((self.player, self.player2))    
         #ENDTEMP        
         self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
-        #self.graphics = Graphics(self.player, self.scoreboard, self.timer);
+        self.graphics = Graphics(self.player, self.scoreboard, self.timer);
         
-          
         # Render the boid swarm
         while do_continue:
             delta = clock.tick(30) # fps
@@ -61,20 +54,14 @@ class Shapescape:
                     return
                 else:
                     self.control.update(event)
-            
-            #TEMP
-            shape_layer.update(delta)            
-            #ENDTEMP                     
-                       
+                
             # Update 
             self.logic.update(delta)
+            self.graphics.update(delta)
             
-            # Render    
-            self.screen.blit(self.background, (0,0))
-            self.screen.blit(self.scoreboard.image, (0, 0))
-            self.screen.blit(self.timer.image, (150, 0))
-            
-            shape_layer.draw(self.screen)            
+            # Render
+            self.graphics.draw(self.screen, delta);
+                     
             pygame.display.flip()        
         
 def main():

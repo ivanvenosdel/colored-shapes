@@ -2,10 +2,10 @@ import pygame
 
 class Logic:
     def __init__(self, player, scoreboard, timer, control):
+        self.player = player
         self.scoreboard = scoreboard
         self.timer = timer
         self.control = control
-        self.player = player
     
     def update(self, delta):
         #Handle Input
