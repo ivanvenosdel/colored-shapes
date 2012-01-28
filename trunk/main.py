@@ -5,6 +5,8 @@ from actors import Octagon
 from ui.Countdown import CountDown
 from ui.Scoreboard import Scoreboard
 
+import imageutils
+
 class Shapescape:
     # Initialize the boid view
     def __init__(self):
@@ -22,8 +24,7 @@ class Shapescape:
         pygame.display.set_caption('Shapescape')
 
         # Create empty background
-        self.background = surface.Surface(self.screen.get_size()).convert()
-        self.background.fill((0, 0, 0))
+        self.background = imageutils.load_image("BG_1.png")[0].convert()
         
         pygame.mouse.set_visible(1)
         
