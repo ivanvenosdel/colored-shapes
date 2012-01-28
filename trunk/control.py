@@ -9,7 +9,6 @@ class Control:
         self.moveUp    = False
         self.moveDown  = False          
  
-        
     def update(self, event):
         if event.type == KEYDOWN:
             if event.key in (K_UP, K_w):
