@@ -1,8 +1,6 @@
-import pygame.gfxdraw
-import pygame.surface
-import pygame.color
+import pygame
+from pygame import surface
 from pygame.locals import *
-from pygame.color import *
 
 class Shapescape:
     # Initialize the boid view
@@ -21,7 +19,7 @@ class Shapescape:
         pygame.display.set_caption('Shapescape')
 
         # Create empty background
-        self.background = pygame.Surface(self.screen.get_size()).convert()
+        self.background = surface.Surface(self.screen.get_size()).convert()
         self.background.fill((0, 0, 0))
         
         pygame.mouse.set_visible(1)
@@ -40,26 +38,6 @@ class Shapescape:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     return
-                #elif event.type == MOUSEBUTTONDOWN:
-                    #pos = pygame.mouse.get_pos()
-
-                    ## Set target position
-                    #if pygame.mouse.get_pressed()[0] == 1:                   
-                        #if self.target is not None:
-                            #self.targetRenderGroup.remove(self.target)
-                        #self.target = Target(pos[0], pos[1])
-                        #self.boidSwarm.target = Vector2D(pos[0], pos[1])
-                        #self.targetRenderGroup.add(self.target)
-                        
-                    ## Set obstacle position
-                    #if pygame.mouse.get_pressed()[2] == 1:                   
-                        #if self.obstacle is not None:
-                            #self.obstacleRenderGroup.remove(self.obstacle)
-                        #self.obstacle = Target(pos[0], pos[1], 10, 10, 'red')
-                        #self.boidSwarm.obstacle = Vector2D(pos[0], pos[1])
-
-                        #self.obstacleRenderGroup.add(self.obstacle)                        
-
             
             # Update screen
             self.screen.blit(self.background, (0,0))
