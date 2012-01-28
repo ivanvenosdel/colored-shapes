@@ -13,7 +13,7 @@ class Shapescape:
         self.gameLoop()
     
     # Prepares the boid view
-    def initWindow(self): 
+    def init_window(self): 
         # Initialize window
         self.screen = pygame.display.set_mode((self.winWidth, self.winHeight))
         pygame.display.set_caption('Shapescape')
