@@ -3,8 +3,9 @@ import pygame
 import imageutils
 
 class Graphics:
-    def __init__(self, player, scoreboard, timer):
+    def __init__(self, player, world, scoreboard, timer):
         self.player = player
+        self.world = world
         self.scoreboard = scoreboard
         self.timer = timer
         

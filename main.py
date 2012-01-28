@@ -8,6 +8,7 @@ from ui.Scoreboard import Scoreboard
 from control import Control
 from logic import Logic
 from graphics import Graphics
+from world import World
 
 import imageutils
 
@@ -38,11 +39,12 @@ class Shapescape:
         self.scoreboard = Scoreboard()
         self.timer = CountDown()
         self.control = Control()
+        self.world = World()
         #TEMP
-        self.player = Octagon()
+        self.player = self.world.create_shape("octagon", 64, 0, "blue")
         #ENDTEMP        
         self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
-        self.graphics = Graphics(self.player, self.scoreboard, self.timer);
+        self.graphics = Graphics(self.player, self.world, self.scoreboard, self.timer);
         
         # Render the boid swarm
         while do_continue:
@@ -57,6 +59,7 @@ class Shapescape:
                 
             # Update 
             self.logic.update(delta)
+            self.world.update(delta)
             self.graphics.update(delta)
             
             # Render
