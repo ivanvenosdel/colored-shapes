@@ -29,13 +29,14 @@ class Shapescape:
     def game_loop(self):
         clock = pygame.time.Clock()
         do_continue = True
-
+        SCORE = Scoreboard()
+        Timer = CountDown()        
         shape = Shape()
         shape_layer = pygame.sprite.RenderPlain((shape))
         
         # Render the boid swarm
         while do_continue:
-            clock.tick(30) # fps
+            Timer.Milli -= clock.tick(30) # fps
 
             # Catch input event
             for event in pygame.event.get():
@@ -47,6 +48,10 @@ class Shapescape:
             
             # Render    
             self.screen.blit(self.background, (0,0))
+            self.screen.blit(SCORE.image, (0, 0))
+            self.screen.blit(Timer.image, (150, 0))
+            SCORE.update()
+            Timer.update()            
             shape_layer.draw(self.screen)            
             pygame.display.flip()        
         
