@@ -1,7 +1,7 @@
 import pygame
 from pygame import surface
 from pygame.locals import *
-from actors.shape import Shape
+from actors import Octagon
 from ui.Countdown import CountDown
 from ui.Scoreboard import Scoreboard
 
@@ -33,7 +33,7 @@ class Shapescape:
         do_continue = True
         SCORE = Scoreboard()
         Timer = CountDown()
-        shape = Shape()
+        shape = Octagon()
         shape_layer = pygame.sprite.RenderPlain((shape))
         
         # Render the boid swarm
