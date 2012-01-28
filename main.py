@@ -2,6 +2,8 @@ import pygame
 from pygame import surface
 from pygame.locals import *
 from actors.shape import Shape
+from ui.Countdown import CountDown
+from ui.Scoreboard import Scoreboard
 
 class Shapescape:
     # Initialize the boid view
@@ -30,7 +32,7 @@ class Shapescape:
         clock = pygame.time.Clock()
         do_continue = True
         SCORE = Scoreboard()
-        Timer = CountDown()        
+        Timer = CountDown()
         shape = Shape()
         shape_layer = pygame.sprite.RenderPlain((shape))
         

@@ -1,9 +1,11 @@
+import pygame
+
 class CountDown:
     def __init__(self):
         self.font = pygame.font.Font(None, 40)
         self.font.set_bold(1)
-        self.color = Color('White')
-        self.lowcolor = Color('Red')
+        self.color = pygame.Color('White')
+        self.lowcolor = pygame.Color('Red')
         self.Minutes = 1
         self.Seconds = 10
         self.Milli = 60
