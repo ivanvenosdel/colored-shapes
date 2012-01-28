@@ -34,3 +34,4 @@ class Control:
                 self.moveUp = False
             elif event.key in (K_DOWN, K_s):
                 self.moveDown = False
+                
