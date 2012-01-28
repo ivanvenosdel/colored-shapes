@@ -1,11 +1,14 @@
 import pygame
 from pygame import surface
 from pygame.locals import *
+
 from actors import Octagon
 from ui.Countdown import CountDown
 from ui.Scoreboard import Scoreboard
 from control import Control
 
+from logic import Logic
+from graphics import Graphics
 import imageutils
 
 class Shapescape:
@@ -35,45 +38,41 @@ class Shapescape:
         do_continue = True
 
         #Initialize
-        SCORE = Scoreboard()
-        Timer = CountDown()
-        shape = Octagon()
-
-        control = Control()
-        shape_layer = pygame.sprite.RenderPlain((shape))      
-
+        self.scoreboard = Scoreboard()
+        self.timer = CountDown()
+        self.control = Control()
+        #TEMP
+        self.player = Octagon()
+        self.player2 = Octagon()
+        self.player2.rect.move_ip((150, 150))
+        shape_layer = pygame.sprite.RenderPlain((self.player, self.player2))    
+        #ENDTEMP        
+        self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
+        #self.graphics = Graphics(self.player, self.scoreboard, self.timer);
         
+          
         # Render the boid swarm
         while do_continue:
             delta = clock.tick(30) # fps
-            Timer.Milli -= delta;
 
             # Catch input event
             for event in pygame.event.get():
                 if event.type == QUIT:
                     return
                 else:
-                    control.update(event)
-                              
-        
-            # Update 
-            shape_layer.update(delta)
-            if control.moveLeft:
-                shape.rect.move_ip(-control.moverate, 0)
-            if control.moveRight:
-                shape.rect.move_ip(control.moverate, 0)
-            if control.moveUp:
-                shape.rect.move_ip(0, -control.moverate)
-            if control.moveDown:
-                shape.rect.move_ip(0, control.moverate)            
+                    self.control.update(event)
             
+            #TEMP
+            shape_layer.update(delta)            
+            #ENDTEMP                     
+                       
+            # Update 
+            self.logic.update(delta)
             
             # Render    
             self.screen.blit(self.background, (0,0))
-            self.screen.blit(SCORE.image, (0, 0))
-            self.screen.blit(Timer.image, (150, 0))
-            SCORE.update()
-            Timer.update()
+            self.screen.blit(self.scoreboard.image, (0, 0))
+            self.screen.blit(self.timer.image, (150, 0))
             
             shape_layer.draw(self.screen)            
             pygame.display.flip()        
