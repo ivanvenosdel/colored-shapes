@@ -4,6 +4,7 @@ from pygame.locals import *
 from actors import Octagon
 from ui.Countdown import CountDown
 from ui.Scoreboard import Scoreboard
+from control import Control
 
 import imageutils
 
@@ -35,7 +36,8 @@ class Shapescape:
         SCORE = Scoreboard()
         Timer = CountDown()
         shape = Octagon()
-        shape_layer = pygame.sprite.RenderPlain((shape))
+        control = Control()
+        shape_layer = pygame.sprite.RenderPlain((shape))      
         
         # Render the boid swarm
         while do_continue:
@@ -45,16 +47,29 @@ class Shapescape:
             for event in pygame.event.get():
                 if event.type == QUIT:
                     return
-            
+                else:
+                    control.update(event)
+                              
+        
             # Update 
             shape_layer.update()
+            if control.moveLeft:
+                shape.rect.move_ip(-control.moverate, 0)
+            if control.moveRight:
+                shape.rect.move_ip(control.moverate, 0)
+            if control.moveUp:
+                shape.rect.move_ip(0, -control.moverate)
+            if control.moveDown:
+                shape.rect.move_ip(0, control.moverate)            
+            
             
             # Render    
             self.screen.blit(self.background, (0,0))
             self.screen.blit(SCORE.image, (0, 0))
             self.screen.blit(Timer.image, (150, 0))
             SCORE.update()
-            Timer.update()            
+            Timer.update()
+            
             shape_layer.draw(self.screen)            
             pygame.display.flip()        
         
