@@ -1,4 +1,5 @@
 import random
+import uuid
 
 import pygame
 from pygame.sprite import Sprite
@@ -10,7 +11,7 @@ class Shape(Sprite):
 
     def __init__(self, shape, color):
         Sprite.__init__(self) #call Sprite intializer
-
+        self.id = uuid.uuid1()
         self.color = color
         self.shape = shape
         self.texture_path = "%s_%s.png" % (color, self.shape)
