@@ -1,29 +1,30 @@
 import pygame
 
+import imageutils
+
 class Graphics:
-    def __init__(self, scoreboard, timer, control, player):
+    def __init__(self, player, scoreboard, timer):
+        self.player = player
         self.scoreboard = scoreboard
         self.timer = timer
-        self.control = control
-        self.player = player
-    
-    def update(self, delta):
-        #Handle Input
-        if self.control.moveLeft:
-            self.player.rect.move_ip(-self.control.moverate, 0)
-        if self.control.moveRight:
-            self.player.rect.move_ip(self.control.moverate, 0)
-        if self.control.moveUp:
-            self.player.rect.move_ip(0, -self.control.moverate)
-        if self.control.moveDown:
-            self.player.rect.move_ip(0, self.control.moverate)       
-       
-        #Update Countdown Timer
-        self.timer.Milli -= delta;
-        self.timer.update()        
-
-        #Update score value
-        self.scoreboard.update()
-            
         
+        # Create empty background
+        self.background = imageutils.load_image("BG_1.png")[0].convert()
+        
+        # Create Layers
+        self.shape_layer = pygame.sprite.RenderPlain((self.player))    
+        
+    def update(self, delta):
+        self.shape_layer.update(delta)         
     
+    def draw(self, screen, delta):
+        # Background base
+        screen.blit(self.background, (0,0))
+        
+        # Draw the layers
+        self.shape_layer.draw(screen)   
+        
+        # Draw UI
+        screen.blit(self.scoreboard.image, (0, 0))
+        screen.blit(self.timer.image, (940, 0))
+        
