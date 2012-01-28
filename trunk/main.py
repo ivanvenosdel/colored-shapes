@@ -1,6 +1,7 @@
 import pygame
 from pygame import surface
 from pygame.locals import *
+from actors.shape import Shape
 
 class Shapescape:
     # Initialize the boid view
@@ -36,6 +37,10 @@ class Shapescape:
         monster_x_position = 0
         monster_y_position = 0
         #END TEMP
+        shape = Shape()
+        shape_layer = pygame.sprite.RenderPlain((shape))
+        
+        # Render the boid swarm
         while do_continue:
             clock.tick(30) # fps
             
@@ -56,11 +61,14 @@ class Shapescape:
                 if event.type == QUIT:
                     return
             
-            # Update screen
+            # Update 
+            shape_layer.update()
+            
+            # Render    
             self.screen.blit(self.background, (0,0))
+            shape_layer.draw(self.screen)            
             self.screen.blit(self.monster, (monster_x_position,monster_y_position))
             pygame.display.flip()        
-        
         
 def main():
     view = Shapescape()
