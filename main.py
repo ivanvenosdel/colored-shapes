@@ -5,17 +5,17 @@ from pygame.locals import *
 class Shapescape:
     # Initialize the boid view
     def __init__(self):
-        self.winWidth = 1024
-        self.winHeight = 768
+        self.win_width = 1024
+        self.win_height = 768
         
         pygame.init()
-        self.initWindow()
-        self.gameLoop()
+        self.init_window()
+        self.game_loop()
     
     # Prepares the boid view
     def init_window(self): 
         # Initialize window
-        self.screen = pygame.display.set_mode((self.winWidth, self.winHeight))
+        self.screen = pygame.display.set_mode((self.win_width, self.win_height))
         pygame.display.set_caption('Shapescape')
 
         # Create empty background
@@ -25,13 +25,13 @@ class Shapescape:
         pygame.mouse.set_visible(1)
         
     # Continuesly renders the boid swarm
-    def gameLoop(self):
+    def game_loop(self):
         # Prepary to loop
         clock = pygame.time.Clock()
-        doContinue = True
+        do_continue = True
 
         # Render the boid swarm
-        while doContinue:
+        while do_continue:
             clock.tick(30) # fps
 
             # Catch input event
