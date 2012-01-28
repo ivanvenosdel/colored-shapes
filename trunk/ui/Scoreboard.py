@@ -1,8 +1,10 @@
+import pygame
+
 class Scoreboard:
     def __init__(self):
         self.font = pygame.font.Font(None, 20)
         self.font.set_italic(1)
-        self.color = Color('white')
+        self.color = pygame.Color('white')
         self.lastscore = -1
         self.currentscore = 0
         self.update()
