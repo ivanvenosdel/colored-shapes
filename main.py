@@ -9,6 +9,7 @@ from control import Control
 from logic import Logic
 from graphics import Graphics
 from world import World
+from player import Player
 
 import imageutils
 
@@ -40,13 +41,10 @@ class Shapescape:
         self.timer = CountDown()
         self.control = Control()
         self.world = World()
-        #TEMP
-        self.player = self.world.create_shape("octagon", 64, 0, "blue")
-        #ENDTEMP        
+        self.player = Player()
         self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
         self.graphics = Graphics(self.player, self.world, self.scoreboard, self.timer);
         
-        # Render the boid swarm
         while do_continue:
             delta = clock.tick(30) # fps
 

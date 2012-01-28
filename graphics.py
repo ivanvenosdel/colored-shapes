@@ -13,7 +13,7 @@ class Graphics:
         self.background = imageutils.load_image("BG_1.png")[0].convert()
         
         # Create Layers
-        self.shape_layer = pygame.sprite.RenderPlain((self.player))    
+        self.shape_layer = pygame.sprite.RenderPlain(self.player.get_render_list())
         
     def update(self, delta):
         self.shape_layer.update(delta)         
