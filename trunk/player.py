@@ -11,6 +11,7 @@ class Player:
         
         self.head = Head(32, 0)
         self.graphics.add_player_shape(self.head)
+        self.total_size = self.head.size;
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
         self.attached_shapes = {self.head.id: self.head}
@@ -72,6 +73,8 @@ class Player:
         #Really? Ok, screw it, just pick an open shape at random
         open_shape_id = random.choice(open_shape_ids)
         self.__add_shape(shape, open_shape_id)
+        
+        self.total_size += shape.size
         
         #Tell Graphics
         self.graphics.add_player_shape(shape) 

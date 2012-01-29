@@ -99,6 +99,6 @@ class World:
         
         #if (
         
-        x = random.randint(-512, 512) 
-        y = random.randint(-512, 512)
+        x = random.randint(-150, 150) 
+        y = random.randint(-150, 150)
         return (x,y)

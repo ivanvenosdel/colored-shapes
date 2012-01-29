@@ -1,5 +1,5 @@
 import pygame
-
+import random
 import imageutils
 
 
@@ -9,7 +9,8 @@ class Graphics:
         self.timer = timer
         
         # Create empty background
-        self.background = imageutils.load_image("BG_1.png")[0].convert()
+        x = random.choice([1,2,3,6])
+        self.background = imageutils.load_image("BG_%s.png" % x)[0].convert()
         
         # Create Layers
         self.player_layer = pygame.sprite.RenderPlain()
@@ -31,7 +32,7 @@ class Graphics:
 
         # Draw UI
         screen.blit(self.scoreboard.image, (0, 0))
-        screen.blit(self.timer.image, (940, 0))
+        screen.blit(self.timer.image, (920, 0))
     
     def add_player_shape(self, shape):
         self.player_layer.add(shape)

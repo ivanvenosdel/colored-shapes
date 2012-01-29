@@ -42,7 +42,8 @@ class Logic:
         for player_piece in self.player.get_render_list():
             for enemy in self.world.enemies.values():
                 if player_piece.bounding.colliderect(enemy.bounding):
-                    if player_piece.rect.size > enemy.rect.size:
+                    if self.player.total_size >= enemy.size:
+                        self.world.remove_enemy(enemy.id)
                         self.player.attach_shape(enemy)
                         self.timer.add_seconds(15)
                         self.scoreboard.plusscore(enemy.pointvalue)
