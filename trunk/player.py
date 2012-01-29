@@ -2,6 +2,7 @@ import random
 import pygame
 
 from actors import Head, Tri
+from vector2 import Vector2
 
 class Player:
     
@@ -18,7 +19,13 @@ class Player:
                 open_shape_ids.append(shape_id)
         return open_shape_ids
         
-    def __add_shape(self, shape, leaf_id):        
+    def __add_shape(self, shape, leaf_id):
+        leaf_shape = self.attached_shapes[leaf_id]
+        
+        #Create a vector between the two shapes to figure out how to move it to it but without collision
+        shape_vector = Vector2.from_points((shape.rect.x, shape.rect.y), (leaf_shape.rect.x, leaf_shape.rect.y))
+        shape.rect.move(shape_vector.x - shape.rect.width / 2, shape_vector.y - shape.rect.height / 2)
+        
         self.attached_shapes[shape.id] = shape
         self.shape_graph[shape.id] = [leaf_id]
         self.shape_graph[leaf_id].append(shape.id)
