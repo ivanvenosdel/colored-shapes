@@ -80,7 +80,7 @@ class Player:
             dead_shape_id = random.choice(self.attached_shapes.keys())
             dead_shape = self.attached_shapes[dead_shape_id]
         
-        shape_ids = self.attached_shapes.keys()
+        shape_ids = deepcopy(self.attached_shapes.keys())
         for shape_id in shape_ids:
             finish_him = False
             shape = self.attached_shapes[shape_id]
@@ -91,10 +91,16 @@ class Player:
                     finish_him = True
             if finish_him:
                 del self.attached_shapes[shape_id]
+                #Update anyone referencing it
+                for attached_shapes in deepcopy(self.shape_graph[shape_id]):
+                    if dead_shape_id in attached_shapes:
+                        self.shape_graph[shape_id].remove(dead_shape_id)
+                #Delete it's references
                 del self.shape_graph[shape_id]
+                
                 #Tell Graphics
                 self.graphics.remove_player_shape(shape) 
-                self.graphics.add_enemy_shape(shape)
+                #self.graphics.add_enemy_shape(shape)
                 
                 if shape.size == 20:
                     self.total_size -= 1

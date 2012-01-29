@@ -102,7 +102,7 @@ class Logic:
                                     
                             else:
                                 self.player.kill_shape(player_piece)
-                                self.world.add_enemy_shape(player_piece)
+                                #self.world.add_enemy_shape(player_piece)
                                 self.player.invincible = True
                                 self.player.invincible_timer = self.player.invincible_rate
                                 pygame.mixer.Sound(self.crash).play()
