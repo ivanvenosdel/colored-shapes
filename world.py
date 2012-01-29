@@ -36,11 +36,14 @@ class World:
         shape = self.create_shape(shape_type, size, rotation, color)
         shape.rect.move_ip(pos)
         self.enemies[shape.id] = shape
-        self.graphics.add_player_shape(shape)
+        self.graphics.add_enemy_shape(shape)
+
+    def add_enemy_shape(self, shape):
+        self.enemies[shape.id] = shape
 
     def remove_enemy(self, shapeid):
         if shapeid in self.enemies:
-            self.graphics.remove_player_shape(self.enemies[shapeid])
+            self.graphics.remove_enemy_shape(self.enemies[shapeid])
             del self.enemies[shapeid]
 
     def __get_random_color(self):
