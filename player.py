@@ -11,7 +11,9 @@ class Player:
         
         self.head = Head(32, 0)
         self.graphics.add_player_shape(self.head)
+        self.head.rect.move_ip(512, 384)
         self.total_size = 1;
+        
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
         self.attached_shapes = {self.head.id: self.head}
