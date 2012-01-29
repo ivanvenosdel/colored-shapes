@@ -1,4 +1,6 @@
 import random
+from copy import deepcopy
+
 import pygame
 
 from actors import Head, Tri
@@ -57,6 +59,38 @@ class Player:
                 newpath = find_path(graph, node, end, path)
                 if newpath: return newpath
         return None
+    
+    def kill_shape(self, dead_shape):
+        shape_type = type(dead_shape)
+        if shape_type is Head and len(self.attached_shapes) <= 1:
+            #TODO: GAME OVER
+            return
+        
+        no_head_shapes = deepcopy(self.attached_shapes)
+        for shape in self.attached_shapes:
+            if type(shape) is Head:
+                del no_head_shapes[shape.id]
+                
+        if type(dead_shape) is Head:
+            dead_shape_id = random.choice(no_head_shapes.keys())
+            dead_shape = no_head_shapes[dead_shape_id]
+        
+        shape_ids = self.attached_shapes.keys()
+        for shape_id in shape_ids:
+            if shape_id == dead_shape.id:
+                del self.attached_shapes[shape_id]
+                del self.shape_graph[shape_id]
+                #Tell Graphics
+                self.graphics.remove_player_shape(shape) 
+                self.graphics.add_enemy_shape(shape)
+            else:
+                shape = self.attached_shapes[shape_id]
+                if shape.parent and shape.parent.id == dead_shape.id:
+                    del self.attached_shapes[shape_id]
+                    del self.shape_graph[shape_id]
+                    #Tell Graphics
+                    self.graphics.remove_player_shape(shape) 
+                    self.graphics.add_enemy_shape(shape)
         
     def attach_shape(self, shape):
         open_shape_ids = self.__get_open_shapes()
