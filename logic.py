@@ -29,13 +29,11 @@ class Logic:
         #ONLY move the shapes attached to head and not far
         for shape in self.player.get_render_list():
             if type(shape) is not Head:
-                if type(shape.parent) is not Head:
-                    if shape.parent.last_vector:
-                        shape.rect.move_ip(shape.parent.last_vector.x, shape.parent.last_vector.y)
-                else:
-                    #Only the people following head
+                if shape.parent.last_location:
                     head = shape.parent
-                    shape.rect.move_ip(-head.directionx*(head.rect.width /2 + shape.rect.width /2), -head.directiony*(head.rect.height /2 + shape.rect.height /2))
+                    shape.rect = head.rect.copy()
+                    shape.rect.move_ip(-globalvars.GLOBAL_DELTA_X, -globalvars.GLOBAL_DELTA_Y)   
+                    shape.rotatation = shape.parent.rotation
         
         #Handle Input
         if self.control.rotateLeft and self.control.moveUp:
