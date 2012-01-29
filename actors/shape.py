@@ -22,7 +22,6 @@ class Shape(Sprite):
         self.original = self.image;
         
     def update(self, delta):
-        self.rotation = (self.rotation + 5) % 360
         center = self.rect.center
         self.image = pygame.transform.rotate(self.original, self.rotation)
         self.rect = self.image.get_rect(center=center)

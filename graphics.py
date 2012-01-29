@@ -27,5 +27,5 @@ class Graphics:
         
         # Draw UI
         screen.blit(self.scoreboard.image, (0, 0))
-        screen.blit(self.timer.image, (940, 0))
+        screen.blit(self.timer.image, (920, 0))
         

@@ -2,7 +2,7 @@ import pygame
 
 class Scoreboard:
     def __init__(self):
-        self.font = pygame.font.Font(None, 20)
+        self.font = pygame.font.SysFont('tahoma', 30)
         self.font.set_italic(1)
         self.color = pygame.Color('white')
         self.lastscore = -1
