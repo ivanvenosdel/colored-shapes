@@ -161,6 +161,9 @@ class Player:
         elif shape.size == 128:
             self.total_size += 5           
         
+        #Adjust Powerup
+        #if (shape.
+        
         #Tell Graphics
         self.graphics.add_player_shape(shape) 
         self.graphics.remove_enemy_shape(shape)        

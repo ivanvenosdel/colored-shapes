@@ -13,13 +13,14 @@ from vector2 import Vector2
 class Shape(Sprite):
     loaded_images = {}
 
-    def __init__(self, texture_path, size, rotation, shape_type):
+    def __init__(self, texture_path, size, rotation, shape_type, color):
         Sprite.__init__(self) #call Sprite intializer
         self.id = uuid.uuid1()
         
         self.rotation = rotation
         self.size = size
         self.texture_path = texture_path
+        self.color = color
         
         self.image = pygame.transform.scale(self.getfile(self.texture_path), (self.size, self.size))
         self.rect = self.image.get_rect();

@@ -92,25 +92,26 @@ class Logic:
         self.scoreboard.update()
         
         #Collisions
-        for player_piece in self.player.get_render_list():
-                for enemy in self.world.enemies.values():
-                    if player_piece.bounding.colliderect(enemy.bounding):
-                        if self.player.total_size >= enemy.size or enemy.size == 20:
-                            if type(player_piece) is Head:
-                                self.world.remove_enemy(enemy.id)
-                                self.player.attach_shape(enemy)
-                                self.timer.add_seconds(15)
-                                self.scoreboard.plusscore(enemy.pointvalue)
-                                pygame.mixer.Sound(self.slurp).play()
-                                enemy.randirx = 0
-                                enemy.randiry = 0
-                        elif not self.player.invincible:
-                            player_piece = self.player.kill_shape(player_piece)
-                            self.world.add_enemy_shape(player_piece)
-                            pygame.mixer.Sound(self.crash).play()
-                            self.player.set_invis(True)
-                            return
-                        break #do one collision per shape a frame
+        if not self.player.invincible:
+            for player_piece in self.player.get_render_list():
+                    for enemy in self.world.enemies.values():
+                        if player_piece.bounding.colliderect(enemy.bounding):
+                            if self.player.total_size >= enemy.size or enemy.size == 20:
+                                if type(player_piece) is Head:
+                                    self.world.remove_enemy(enemy.id)
+                                    self.player.attach_shape(enemy)
+                                    self.timer.add_seconds(15)
+                                    self.scoreboard.plusscore(enemy.pointvalue)
+                                    pygame.mixer.Sound(self.slurp).play()
+                                    enemy.randirx = 0
+                                    enemy.randiry = 0
+                            else:
+                                player_piece = self.player.kill_shape(player_piece)
+                                self.world.add_enemy_shape(player_piece)
+                                pygame.mixer.Sound(self.crash).play()
+                                self.player.set_invis(True)
+                                return
+                            break #do one collision per shape a frame
 
         
         
