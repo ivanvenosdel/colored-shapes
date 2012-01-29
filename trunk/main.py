@@ -12,15 +12,17 @@ from world import World
 from player import Player
 
 import imageutils
+from ui.titlescreen import TitleScreen
 
 class Shapescape:
     # Initialize the boid view
     def __init__(self):
         self.win_width = 1024
         self.win_height = 768
-        
         pygame.init()
         self.init_window()
+        title_screen = TitleScreen(self.screen)
+        title_screen.do_loop()
         self.game_loop()
     
     # Prepares the boid view
@@ -66,6 +68,8 @@ class Shapescape:
             pygame.display.flip()        
         
 def main():
+    
+    
     view = Shapescape()
 
     # End game
