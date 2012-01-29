@@ -69,11 +69,15 @@ class World:
             return "tri"       
         
     def __get_random_size(self):
-        x = random.randint(0, 2)
+        x = random.randint(0, 4)
         if x == 0:
-            return 32
+            return 20
         elif x == 1:
-            return 64
+            return 40        
+        elif x == 2:
+            return 70
+        elif x == 3:
+            return 95
         else:
             return 128  
         
@@ -99,6 +103,6 @@ class World:
         
         #if (
         
-        x = random.randint(-150, 150) 
-        y = random.randint(-150, 150)
+        x = random.randint(-150, 1024+150) 
+        y = random.randint(-150, 768+150)
         return (x,y)

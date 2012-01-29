@@ -32,16 +32,17 @@ class Logic:
         
         #Collisions
         for player_piece in self.player.get_render_list():
-            for enemy in self.world.enemies.values():
-                if player_piece.bounding.colliderect(enemy.bounding):
-                    if self.player.total_size >= enemy.size:
-                        self.world.remove_enemy(enemy.id)
-                        self.player.attach_shape(enemy)
-                        self.timer.add_seconds(15)
-                        self.scoreboard.plusscore(enemy.pointvalue)
-                    else:
-                        pass   #HURT PLAYER
-                    break #do one collision per shape a frame
+                for enemy in self.world.enemies.values():
+                    if player_piece.bounding.colliderect(enemy.bounding):
+                        if self.player.total_size >= enemy.size or enemy.size == 20:
+                            if type(player_piece) is Head:
+                                self.world.remove_enemy(enemy.id)
+                                self.player.attach_shape(enemy)
+                                self.timer.add_seconds(15)
+                                self.scoreboard.plusscore(enemy.pointvalue)
+                        else:
+                            pass   #HURT PLAYER
+                        break #do one collision per shape a frame
                     
         #Update Countdown Timer
         self.timer.Milli -= delta
