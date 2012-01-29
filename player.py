@@ -5,7 +5,7 @@ from actors.head import Head
 class Player():
     
     def __init__(self):
-        self.head = Head()
+        self.head = Head(64, 0)
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
         self.leaf_ids = []

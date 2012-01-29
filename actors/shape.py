@@ -9,16 +9,14 @@ import imageutils
 class Shape(Sprite):
     loaded_images = {}
 
-    def __init__(self, shape, color, size, rotation):
+    def __init__(self, texture_path, size, rotation):
         Sprite.__init__(self) #call Sprite intializer
         self.id = uuid.uuid1()
         
         self.rotation = rotation
         self.size = size
+        self.texture_path = texture_path
         
-        self.color = color
-        self.shape = shape
-        self.texture_path = "%s_%s.png" % (color, self.shape)
         self.image = pygame.transform.scale(self.getfile(self.texture_path), (self.size, self.size))
         self.rect = self.image.get_rect();
         self.original = self.image;
@@ -38,3 +36,8 @@ class Shape(Sprite):
             rect.move_ip((-image.get_width()/2, -image.get_height()/2))
             Shape.loaded_images[texture_path] = image
             return image
+        
+    @classmethod
+    def build_texture_path(color, shape_type):
+        return "%s_%s.png" % (color, shape_type)
+        
