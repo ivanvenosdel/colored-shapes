@@ -165,17 +165,18 @@ class Player:
         if triangles and type(shape) is Tri:
             random_triangle = random.choice(triangles)
             self.__add_shape(shape, random_triangle.id)
-            return
-        
-        #No go? Try to hook up shape to the first triangle of same color        
-        for triangle in triangles:
-            if shape.color == triangle.color:
-                self.__add_shape(shape, triangle.id)
-                return 
-            
-        #Really? Ok, screw it, just pick an open shape at random
-        open_shape_id = random.choice(open_shape_ids)
-        self.__add_shape(shape, open_shape_id)
+        else:
+            found = False
+            #No go? Try to hook up shape to the first triangle of same color        
+            for triangle in triangles:
+                if shape.color == triangle.color:
+                    self.__add_shape(shape, triangle.id)
+                    found = True
+                
+            #Really? Ok, screw it, just pick an open shape at random
+            if not found:
+                open_shape_id = random.choice(open_shape_ids)
+                self.__add_shape(shape, open_shape_id)
         
         if shape.size == 20:
             self.total_size += 1
