@@ -1,7 +1,10 @@
 from shape import Shape
 
 class Hexagon(Shape):
+    
+    shape_type = "hex"
 
     def __init__(self, size, rotation, color="blue"):
-        Shape.__init__(self, "hex", color, size, rotation)
+        texture_path = Shape.build_texture_path(color, shape_type)
+        Shape.__init__(self, texture_path, size, rotation)
     
