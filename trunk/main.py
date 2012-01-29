@@ -6,6 +6,7 @@ from actors import Octagon
 from ui.Countdown import CountDown
 from ui.Scoreboard import Scoreboard
 from control import Control
+import logic
 from logic import Logic
 from graphics import Graphics
 from world import World

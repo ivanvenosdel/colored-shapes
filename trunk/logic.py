@@ -4,8 +4,6 @@ from pygame import sprite
 from vector2 import Vector2
 from actors import Head
 
-GLOBAL_DELTA_X = 0
-GLOBAL_DELTA_Y = 0
 
 class Logic:
     def __init__(self, player, world, scoreboard, timer, control):
@@ -18,6 +16,9 @@ class Logic:
         
         self.driftx = 0
         self.drifty = 0
+        
+        self.GLOBAL_DELTA_X = 0
+        self.GLOBAL_DELTA_Y = 0
         
     def update(self, delta):
         self.player.update(delta)
@@ -38,7 +39,9 @@ class Logic:
         if self.control.moveUp:
             self.driftx = self.player.head.directionx*self.playerspeed
             self.drifty = -self.player.head.directiony*self.playerspeed
-            self.player.head.rect.move_ip(self.driftx, self.drifty)
+            #self.player.head.rect.move_ip(self.driftx, self.drifty)
+            self.GLOBAL_DELTA_X = self.driftx
+            self.GLOBAL_DELTA_Y = self.drifty
         elif self.driftx != 0 or self.drifty != 0:
             if self.driftx > 0:
                 self.driftx -= 1
@@ -58,9 +61,19 @@ class Logic:
                 if self.drifty > 0:
                     self.drifty = 0       
                     
-            GLOBAL_DELTA_X = self.driftx
-            GLOBAL_DELTA_Y = self.drifty
-            self.player.head.rect.move_ip(self.driftx, self.drifty)
+            self.GLOBAL_DELTA_X = self.driftx
+            self.GLOBAL_DELTA_Y = self.drifty
+            
+            #self.player.head.rect.move_ip(self.driftx, self.drifty)
+            
+        if self.GLOBAL_DELTA_X != 0 or self.GLOBAL_DELTA_Y != 0: 
+            #update ai positions
+            for enemy in self.world.enemies.values():
+                enemy.rect.move_ip(-self.GLOBAL_DELTA_X, -self.GLOBAL_DELTA_Y)
+                
+            #for player_piece in self.player.get_render_list():
+            #    if type(player_piece) is not Head:   
+            #        player_piece.rect.move_ip(self.GLOBAL_DELTA_X / 9.8, self.GLOBAL_DELTA_Y / 9.8)             
             
         #Update Countdown Timer
         self.timer.Milli -= delta
