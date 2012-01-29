@@ -57,7 +57,7 @@ class Shapescape:
         self.graphics = Graphics(self.scoreboard, self.timer);
         self.player = Player(self.graphics)
         self.world = World(self.graphics, self.player) 
-        self.logic = Logic(self.player, self.world, self.scoreboard, self.timer, self.control)
+        self.logic = Logic(self.player, self.world, self.graphics, self.scoreboard, self.timer, self.control)
         
         while globalvars.run_game:
             delta = clock.tick(30) # fps
