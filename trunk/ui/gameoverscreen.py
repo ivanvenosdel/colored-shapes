@@ -6,9 +6,10 @@ import os
 import imageutils
 
 class GameOver():
-    def __init__(self, screen):
+    def __init__(self, screen, scoreboard):
         self.screen = screen
         self.background = imageutils.load_image("BG_gameover.png")[0].convert()  
+        self.scoreboard = scoreboard
         
     def do_loop(self):
         
@@ -21,7 +22,9 @@ class GameOver():
         while done==False:  
             for event in pygame.event.get(): # User did something
                 if event.type == KEYDOWN: # If user clicked close
-                     if event.key is (K_ESCAPE):
+                    if event.key is (K_ESCAPE):
                         done=True # Flag that we are done so we exit this loop
             self.screen.blit(self.background, (0,0)) 
+            self.screen.blit(self.scoreboard.image, (0, 0))
             pygame.display.flip() 
+            
