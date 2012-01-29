@@ -37,13 +37,13 @@ class World:
         shape.rect.move_ip(pos)
         self.enemies[shape.id] = shape
         self.graphics.add_enemy_shape(shape)
-        shape.randirx = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
-        shape.randiry = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
+        shape.randirx = random.choice([-10, -6, -4, -4, -2, -2,-1,-1, 0, 0, 0, 1, 1, 2, 2, 4, 4, 6, 10])
+        shape.randiry = random.choice([-10, -6, -4, -4, -2, -2,-1,-1, 0, 0, 0, 1, 1, 2, 2, 4, 4, 6, 10])
 
     def add_enemy_shape(self, shape):
         self.enemies[shape.id] = shape
-        shape.randirx = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
-        shape.randiry = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
+        shape.randirx = random.choice([-10, -6, -4, -4, -2, -2,-1,-1, 0, 0, 0, 1, 1, 2, 2, 4, 4, 6, 10])
+        shape.randiry = random.choice([-10, -6, -4, -4, -2, -2,-1,-1, 0, 0, 0, 1, 1, 2, 2, 4, 4, 6, 10])
 
     def remove_enemy(self, shapeid):
         if shapeid in self.enemies:
