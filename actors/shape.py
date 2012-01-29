@@ -46,9 +46,14 @@ class Shape(Sprite):
         self.last_vector = None
         self.parent = None
         
+        self.randirx = 0
+        self.randiry = 0
+        
     def update(self, delta):
         if self.last_location:
             self.last_vector = Vector2.from_points(self.last_location, (self.rect.x, self.rect.y))
+        
+        self.rect.move_ip((self.randirx, self.randiry))
         
         center = self.rect.center
         self.image = pygame.transform.rotate(self.original, self.rotation)
@@ -56,6 +61,7 @@ class Shape(Sprite):
         self.bounding = self.rect.inflate(-self.rect.width/2.25, -self.rect.height/2.25) 
         
         self.last_location = (self.rect.x, self.rect.y)
+        
         
     def getfile(self, texture_path):
         if texture_path in Shape.loaded_images:

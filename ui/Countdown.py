@@ -1,5 +1,7 @@
 import pygame
 
+import globalvars
+
 class CountDown:
     def __init__(self):
         self.font = pygame.font.SysFont('stencil', 40)
@@ -15,6 +17,7 @@ class CountDown:
         if(self.Seconds <= 0 and self.Minutes <= 0):
             self.Seconds = 0
             self.Minutes = 0
+            globalvars.run_game = False
         elif(self.Seconds <= 0):
             self.Seconds = 60
             self.Minutes -= 1

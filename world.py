@@ -17,7 +17,8 @@ class World:
         if self.spawn_timer <= 0:
             self.spawn_timer = self.spawn_rate
             # Chance for a new enemy
-            self.add_enemy(self.__get_random_shape(), self.__get_random_size(), self.__get_random_rot(), self.__get_random_color(), self.__get_random_pos())
+            self.add_enemy(self.__get_random_shape(), self.__get_random_size(), self.__get_random_rot(), self.__get_random_color(), 
+                           self.__get_random_pos())
         
     def create_shape(self, shape_type, size, rotation, color):
         if shape_type == "hexagon":
@@ -36,9 +37,13 @@ class World:
         shape.rect.move_ip(pos)
         self.enemies[shape.id] = shape
         self.graphics.add_enemy_shape(shape)
+        shape.randirx = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
+        shape.randiry = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
 
     def add_enemy_shape(self, shape):
         self.enemies[shape.id] = shape
+        shape.randirx = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
+        shape.randiry = random.choice([-2,-1,-1, 0, 0, 0, 0, 0, 1, 1, 2])
 
     def remove_enemy(self, shapeid):
         if shapeid in self.enemies:
@@ -170,4 +175,6 @@ class World:
         
         x = random.randint(-100, 1024+100) 
         y = random.randint(-100, 768+100)
+        
+        #if x
         return (x,y)

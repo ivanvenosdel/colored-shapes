@@ -5,6 +5,7 @@ from pygame.locals import *
 from vector2 import Vector2
 from actors import Head
 import globalvars
+import world
 
 import os
 import imageutils
@@ -94,6 +95,8 @@ class Logic:
                                 self.timer.add_seconds(15)
                                 self.scoreboard.plusscore(enemy.pointvalue)
                                 pygame.mixer.Sound(self.slurp).play()
+                                enemy.randirx = 0
+                                enemy.randiry = 0
                         elif not self.player.invincible:
                             player_piece = self.player.kill_shape(player_piece)
                             self.world.add_enemy_shape(player_piece)
@@ -103,7 +106,7 @@ class Logic:
                             return
                         break #do one collision per shape a frame
 
-                    
+        
         
         
       
