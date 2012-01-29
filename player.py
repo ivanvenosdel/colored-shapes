@@ -71,19 +71,15 @@ class Player:
         return None
     
     def kill_shape(self, dead_shape):
-        shape_type = type(dead_shape)
-        if shape_type is Head and len(self.attached_shapes) <= 1:
+        if type(dead_shape) is Head or len(self.attached_shapes) <= 1:
             #TODO: GAME OVER
+            #Reset him to nothing for now
+            self.shape_graph[dead_shape.id] = []
             return
         
-        no_head_shapes = deepcopy(self.attached_shapes)
-        for shape in self.attached_shapes:
-            if type(shape) is Head:
-                del no_head_shapes[shape.id]
-                
-        if type(dead_shape) is Head:
-            dead_shape_id = random.choice(no_head_shapes.keys())
-            dead_shape = no_head_shapes[dead_shape_id]
+        while type(dead_shape) is Head:
+            dead_shape_id = random.choice(self.attached_shapes.keys())
+            dead_shape = self.attached_shapes[dead_shape_id]
         
         shape_ids = self.attached_shapes.keys()
         for shape_id in shape_ids:
