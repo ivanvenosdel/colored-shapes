@@ -70,8 +70,8 @@ class Player:
                 return 
             
         #Really? Ok, screw it, just pick an open shape at random
-        open_shape = random.choice(open_shape_ids)
-        self.__add_shape(shape, open_shape.id)
+        open_shape_id = random.choice(open_shape_ids)
+        self.__add_shape(shape, open_shape_id)
         
         #Tell Graphics
         self.graphics.add_player_shape(shape) 
