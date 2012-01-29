@@ -48,8 +48,8 @@ class Shapescape:
         self.timer = CountDown()
         self.control = Control()
         self.graphics = Graphics(self.scoreboard, self.timer);
-        self.world = World(self.graphics) 
         self.player = Player(self.graphics)
+        self.world = World(self.graphics, self.player) 
         self.logic = Logic(self.player, self.world, self.scoreboard, self.timer, self.control)
         
         #TEMP

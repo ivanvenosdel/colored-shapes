@@ -9,7 +9,7 @@ class Player:
     def __init__(self, graphics):  
         self.graphics = graphics
         
-        self.head = Head(64, 0)
+        self.head = Head(32, 0)
         self.graphics.add_player_shape(self.head)
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
