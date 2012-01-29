@@ -23,6 +23,7 @@ class Shape(Sprite):
         
         self.image = pygame.transform.scale(self.getfile(self.texture_path), (self.size, self.size))
         self.rect = self.image.get_rect();
+        
         self.original = self.image;
         
         self.bounding = self.rect.inflate(-self.rect.width/3, -self.rect.height/3)      
