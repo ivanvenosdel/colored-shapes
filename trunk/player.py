@@ -96,8 +96,6 @@ class Player:
     
     def kill_shape(self, dead_shape):
 
-        print 'Kill Shape called. Shape: %s, Invincible: %s' % (dead_shape, self.invincible)
-
         if type(dead_shape) is Head and len(self.attached_shapes) <= 1:
             globalvars.run_game = False
             globalvars.failed = True
