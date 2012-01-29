@@ -6,6 +6,8 @@ import pygame
 from actors import Head, Tri
 from vector2 import Vector2
 
+import globalvars
+
 class Player:
     
     def __init__(self, graphics):  
@@ -72,10 +74,7 @@ class Player:
     
     def kill_shape(self, dead_shape):
         if type(dead_shape) is Head or len(self.attached_shapes) <= 1:
-            #TODO: GAME OVER
-            #Reset him to nothing for now
-            self.shape_graph[dead_shape.id] = []
-            return
+            raise globalvars.GameOver
         
         while type(dead_shape) is Head:
             dead_shape_id = random.choice(self.attached_shapes.keys())
