@@ -28,11 +28,13 @@ class Player:
         
         #Create a vector between the two shapes to figure out how to move it to it but without collision
         shape_vector = Vector2.from_points((shape.rect.x, shape.rect.y), (leaf_shape.rect.x, leaf_shape.rect.y))
-        shape.rect.move(shape_vector.x, shape_vector.y)
+        shape.rect.move(shape_vector.x - (shape.rect.width + leaf_shape.rect.width), shape_vector.y - (shape.rect.height + leaf_shape.rect.height))
         
         self.attached_shapes[shape.id] = shape
         self.shape_graph[shape.id] = [leaf_id]
         self.shape_graph[leaf_id].append(shape.id)
+        
+        shape.parent = leaf_shape
         
     def __find_attached_triangles(self, shape_ids):
         triangles = []

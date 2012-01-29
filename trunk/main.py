@@ -51,7 +51,7 @@ class Shapescape:
         self.logic = Logic(self.player, self.world, self.scoreboard, self.timer, self.control)
         
         #TEMP
-        #shape1 = self.world.create_shape("tri", 64, 0, "red")
+        #shape1 = self.world.create_shape("tri", 64, 400, "red")
         #shape2 = self.world.create_shape("octagon", 64, 0, "blue")
         #shape3 = self.world.create_shape("square", 64, 0, "red")
         #shape4 = self.world.create_shape("tri", 64, 0, "blue")
