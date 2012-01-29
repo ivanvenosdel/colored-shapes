@@ -95,7 +95,7 @@ class Logic:
                                 self.scoreboard.plusscore(enemy.pointvalue)
                                 pygame.mixer.Sound(self.slurp).play()
                         elif not self.player.invincible:
-                            self.player.kill_shape(player_piece)
+                            player_piece = self.player.kill_shape(player_piece)
                             self.world.add_enemy_shape(player_piece)
                             self.player.invincible = True
                             self.player.invincible_timer = self.player.invincible_rate
