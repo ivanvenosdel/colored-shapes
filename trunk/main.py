@@ -34,8 +34,9 @@ class Shapescape:
         self.game_loop()
         
         #gameover screen
-        gameover_screen = GameOver(self.screen)
-        gameover_screen.do_loop()
+        if globalvars.failed:
+            gameover_screen = GameOver(self.screen)
+            gameover_screen.do_loop()
     
     # Prepares the boid view
     def init_window(self): 

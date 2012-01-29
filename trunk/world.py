@@ -171,10 +171,7 @@ class World:
     def __get_random_pos(self):
         r = random.randint(0, 6) 
         
-        #if (
-        
         x = random.randint(-100, 1024+100) 
         y = random.randint(-100, 768+100)
-        
-        #if x
+
         return (x,y)
