@@ -40,7 +40,7 @@ class Shape(Sprite):
             return image
         
     @classmethod
-    def build_texture_path(color, shape_type):
+    def build_texture_path(self, color, shape_type):
         return "%s_%s.png" % (color, shape_type)
         
     def rotate_direction(self, angle_degrees):

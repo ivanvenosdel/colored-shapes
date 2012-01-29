@@ -43,7 +43,20 @@ class Shapescape:
         self.timer = CountDown()
         self.control = Control()
         self.player = Player()
+
+        #TEMP
+        #shape1 = self.world.create_shape("tri", 64, 0, "red")
+        #shape2 = self.world.create_shape("octagon", 64, 0, "blue")
+        #shape3 = self.world.create_shape("square", 64, 0, "red")
+        #shape4 = self.world.create_shape("tri", 64, 0, "blue")
+        #self.player.attach_shape(shape1)
+        #self.player.attach_shape(shape2)
+        #self.player.attach_shape(shape3)
+        #self.player.attach_shape(shape4)
+        #ENDTEMP
+    
         self.world = World(self.player)
+
         self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
         self.graphics = Graphics(self.player, self.world, self.scoreboard, self.timer);
         
