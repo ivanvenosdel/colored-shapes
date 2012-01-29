@@ -1,9 +1,13 @@
 import pygame
 from pygame import sprite
+from pygame.locals import *
 
 from vector2 import Vector2
 from actors import Head
 import globalvars
+
+import os
+import imageutils
 
 class Logic:
     def __init__(self, player, world, scoreboard, timer, control):
@@ -13,6 +17,8 @@ class Logic:
         self.timer = timer
         self.control = control
         self.playerspeed = 10
+        self.crash = os.path.join('data', "crash.wav")
+        self.slurp = os.path.join('data', "slurp.wav")
         
         self.driftx = 0
         self.drifty = 0
@@ -76,8 +82,6 @@ class Logic:
         #Update Countdown Timer
         self.timer.Milli -= delta
         self.timer.update()
-        if self.timer.Milli <= (0):
-            pygame.quit()
             
 
         #Update score value
@@ -94,11 +98,14 @@ class Logic:
                                     self.player.attach_shape(enemy)
                                     self.timer.add_seconds(15)
                                     self.scoreboard.plusscore(enemy.pointvalue)
+                                    pygame.mixer.Sound(self.slurp).play()
+                                    
                             else:
                                 self.player.kill_shape(player_piece)
                                 self.world.add_enemy_shape(player_piece)
                                 self.player.invincible = True
                                 self.player.invincible_timer = self.player.invincible_rate
+                                pygame.mixer.Sound(self.crash).play()
                                 return
                             break #do one collision per shape a frame
 
