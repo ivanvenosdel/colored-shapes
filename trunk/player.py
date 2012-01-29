@@ -83,7 +83,7 @@ class Player:
 
         if type(dead_shape) is Head and len(self.attached_shapes) <= 1:
             globalvars.run_game = False
-            return
+            return dead_shape
         
         while type(dead_shape) is Head:
             dead_shape_id = random.choice(self.attached_shapes.keys())
@@ -122,6 +122,7 @@ class Player:
                 elif shape.size == 128:
                     self.total_size -= 5  
                 if self.total_size < 1: self.total_size = 1 #sanity
+                return shape
         
     def attach_shape(self, shape):
         open_shape_ids = self.__get_open_shapes()
