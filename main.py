@@ -11,11 +11,9 @@ from graphics import Graphics
 from world import World
 from player import Player
 
-
 import imageutils
 
 from ui.titlescreen import TitleScreen
-
 
 
 class Shapescape:
