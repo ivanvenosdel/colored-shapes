@@ -1,5 +1,6 @@
 import random
 import uuid
+import math
 
 import pygame
 from pygame.sprite import Sprite
@@ -20,6 +21,8 @@ class Shape(Sprite):
         self.image = pygame.transform.scale(self.getfile(self.texture_path), (self.size, self.size))
         self.rect = self.image.get_rect();
         self.original = self.image;
+        self.directionx = 1
+        self.directiony = 0
         
     def update(self, delta):
         center = self.rect.center
@@ -40,3 +43,13 @@ class Shape(Sprite):
     def build_texture_path(color, shape_type):
         return "%s_%s.png" % (color, shape_type)
         
+    def rotate_direction(self, angle_degrees):
+        radians = math.radians(angle_degrees)
+        cos = math.cos(radians)
+        sin = math.sin(radians)
+        #x = self.directionx*cos - self.directiony*sin
+        #y = self.directionx*sin + self.directiony*cos
+        x = cos
+        y = sin
+        self.directionx = x
+        self.directiony = y

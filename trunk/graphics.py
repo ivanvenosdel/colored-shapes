@@ -8,6 +8,7 @@ class Graphics:
         self.world = world
         self.scoreboard = scoreboard
         self.timer = timer
+        self.line = pygame.surface.Surface((64,64))
         
         # Create empty background
         self.background = imageutils.load_image("BG_1.png")[0].convert()
@@ -28,4 +29,3 @@ class Graphics:
         # Draw UI
         screen.blit(self.scoreboard.image, (0, 0))
         screen.blit(self.timer.image, (920, 0))
-        
