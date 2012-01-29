@@ -38,14 +38,16 @@ class Logic:
         end_head_y = self.player.head.rect.y
         self.last_player_vector = Vector2.from_points((start_head_x, start_head_y), (end_head_x, end_head_y))
         
-        #Test Collisions
+        #Collisions
         for player_piece in self.player.get_render_list():
-            for enemy in self.world.enemies:
-                if pygame.sprite.collide_circle(player_piece, enemy):
+            for enemy in self.world.enemies.values():
+                if player_piece.bounding.colliderect(enemy.bounding):
                     if player_piece.rect.size > enemy.rect.size:
                         self.player.attach_shape(enemy)
+                        self.timer.add_seconds(15)
+                        self.scoreboard.plusscore(enemy.pointvalue)
                     else:
-                        pass
+                        pass   #HURT PLAYER
                     break #do one collision per shape a frame
                     
         #Update Countdown Timer

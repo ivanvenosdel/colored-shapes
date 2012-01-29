@@ -1,16 +1,17 @@
-import random
 import uuid
 import math
+import string
 
 import pygame
 from pygame.sprite import Sprite
-
+import actors
+from actors import *
 import imageutils
 
 class Shape(Sprite):
     loaded_images = {}
 
-    def __init__(self, texture_path, size, rotation):
+    def __init__(self, texture_path, size, rotation, shape_type):
         Sprite.__init__(self) #call Sprite intializer
         self.id = uuid.uuid1()
         
@@ -21,6 +22,20 @@ class Shape(Sprite):
         self.image = pygame.transform.scale(self.getfile(self.texture_path), (self.size, self.size))
         self.rect = self.image.get_rect();
         self.original = self.image;
+        
+        self.bounding = self.rect.inflate(-self.rect.width/3, -self.rect.height/3)      
+        self.pointvalue = 0
+        if shape_type == actors.Octagon.shape_type:
+            self.pointvalue = 800
+        elif shape_type == actors.Hexagon.shape_type:
+            self.pointvalue = 800
+        elif shape_type == actors.Pentagon.shape_type:
+            self.pointvalue = 500
+        elif shape_type == actors.Square.shape_type:
+            self.pointvalue = 400
+        elif shape_type == actors.Tri.shape_type:
+            self.pointvalue = 300
+            
         self.directionx = 1
         self.directiony = 0
         
@@ -28,6 +43,7 @@ class Shape(Sprite):
         center = self.rect.center
         self.image = pygame.transform.rotate(self.original, self.rotation)
         self.rect = self.image.get_rect(center=center)
+        self.bounding = self.rect.inflate(-self.rect.width/3, -self.rect.height/3) 
         
     def getfile(self, texture_path):
         if texture_path in Shape.loaded_images:

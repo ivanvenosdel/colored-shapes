@@ -6,8 +6,8 @@ class CountDown:
         self.color = pygame.Color('White')
         self.lowcolor = pygame.Color('Red')
         self.Minutes = 0
-        self.Seconds = 10
-        self.Milli = 60
+        self.Seconds = 20
+        self.Milli = 0
         self.update()
         self.rect = self.image.get_rect().move(0, 450)
         
@@ -43,3 +43,6 @@ class CountDown:
                 self.image = self.font.render(msg, 0, self.color)        
         if(self.Minutes == 0 and self.Seconds <= 10):
             self.image = self.font.render(msg, 0, self.lowcolor)
+            
+    def add_seconds(self, delta):
+        self.Seconds += delta
