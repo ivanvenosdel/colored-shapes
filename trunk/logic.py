@@ -4,6 +4,9 @@ from pygame import sprite
 from vector2 import Vector2
 from actors import Head
 
+GLOBAL_DELTA_X = 0
+GLOBAL_DELTA_Y = 0
+
 class Logic:
     def __init__(self, player, world, scoreboard, timer, control):
         self.player = player
@@ -17,6 +20,8 @@ class Logic:
         self.drifty = 0
         
     def update(self, delta):
+        self.player.update(delta)
+        
         #Move player shapes from last head move
         for shape in self.player.get_render_list():
             if type(shape) is not Head:
@@ -52,7 +57,9 @@ class Logic:
                 self.drifty += 1  
                 if self.drifty > 0:
                     self.drifty = 0       
-         
+                    
+            GLOBAL_DELTA_X = self.driftx
+            GLOBAL_DELTA_Y = self.drifty
             self.player.head.rect.move_ip(self.driftx, self.drifty)
             
         #Update Countdown Timer
@@ -63,19 +70,24 @@ class Logic:
         self.scoreboard.update()
         
         #Collisions
-        for player_piece in self.player.get_render_list():
-                for enemy in self.world.enemies.values():
-                    if player_piece.bounding.colliderect(enemy.bounding):
-                        if self.player.total_size >= enemy.size or enemy.size == 20:
-                            if type(player_piece) is Head:
-                                self.world.remove_enemy(enemy.id)
-                                self.player.attach_shape(enemy)
-                                self.timer.add_seconds(15)
-                                self.scoreboard.plusscore(enemy.pointvalue)
-                        else:
-                            self.player.kill_shape(player_piece)
-                            return
-                        break #do one collision per shape a frame
+        if not self.player.invincible:
+            for player_piece in self.player.get_render_list():
+                    for enemy in self.world.enemies.values():
+                        if player_piece.bounding.colliderect(enemy.bounding):
+                            if self.player.total_size >= enemy.size or enemy.size == 20:
+                                if type(player_piece) is Head:
+                                    self.world.remove_enemy(enemy.id)
+                                    self.player.attach_shape(enemy)
+                                    self.timer.add_seconds(15)
+                                    self.scoreboard.plusscore(enemy.pointvalue)
+                            else:
+                                self.player.kill_shape(player_piece)
+                                self.world.add_enemy_shape(player_piece)
+                                self.player.invincible = True
+                                self.player.invincible_timer = self.player.invincible_rate
+                                return
+                            break #do one collision per shape a frame
+
                     
         
         

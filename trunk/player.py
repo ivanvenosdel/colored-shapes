@@ -20,6 +20,16 @@ class Player:
         self.shape_graph = {self.head.id: []}
         self.attached_shapes = {self.head.id: self.head}
         
+        self.invincible = False
+        self.invincible_rate = 800
+        self.invincible_timer = self.invincible_rate
+        
+    def update(self, delta):
+        if self.invincible:
+            self.invincible_timer -= delta
+            if self.invincible_timer <= 0: 
+                self.invincible = False
+           
     def __get_open_shapes(self):
         open_shape_ids = []
         for shape_id, attached in self.shape_graph.items():
@@ -90,6 +100,18 @@ class Player:
                 #Tell Graphics
                 self.graphics.remove_player_shape(shape) 
                 self.graphics.add_enemy_shape(shape)
+                
+                if shape.size == 20:
+                    self.total_size -= 1
+                elif shape.size == 40:
+                    self.total_size -= 2 
+                elif shape.size == 70:
+                    self.total_size -= 3  
+                elif shape.size == 95:
+                    self.total_size -= 4  
+                elif shape.size == 128:
+                    self.total_size -= 5  
+                if self.total_size < 1: self.total_size = 1 #sanity
         
     def attach_shape(self, shape):
         open_shape_ids = self.__get_open_shapes()
