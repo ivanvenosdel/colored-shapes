@@ -14,6 +14,10 @@ class Player:
     def __init__(self, graphics):  
         self.graphics = graphics
         
+        self.font = pygame.font.SysFont('tahoma', 15)
+        self.font.set_italic(1)
+        self.color = pygame.Color('white')        
+
         self.head = Head(32, 0)
         self.graphics.add_player_shape(self.head)
         self.head.rect.move_ip(512, 384)
@@ -22,6 +26,9 @@ class Player:
         self.purpledudes = 0
         self.yellowdudes = 0
         self.whitedudes = 0
+        
+        self.speed = 0
+        self.rot = 0
         
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
@@ -36,7 +43,11 @@ class Player:
             self.invincible_timer -= delta
             if self.invincible_timer <= 0: 
                 self.set_invis(False)
-           
+        msg = "Movement Speed: %d" % (self.speed)
+        self.speedmsg = self.font.render(msg, 0, self.color)
+        msg = "Rotation Speed: %d" % (self.rot)
+        self.rotmsg = self.font.render(msg, 0, self.color)
+        
     def __get_open_shapes(self):
         open_shape_ids = []
         for shape_id, attached in self.shape_graph.items():

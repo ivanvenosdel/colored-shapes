@@ -76,6 +76,8 @@ class Shapescape:
             
             # Render
             self.graphics.draw(self.screen, delta);
+            self.screen.blit(self.player.speedmsg, (0, 35))
+            self.screen.blit(self.player.rotmsg, (0, 55))            
               
             pygame.display.flip()        
         
