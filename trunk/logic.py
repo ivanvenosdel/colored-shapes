@@ -9,15 +9,20 @@ class Logic:
     
     def update(self, delta):
         #Handle Input
-        if self.control.moveLeft:
-            self.player.head.rect.move_ip(-self.control.moverate, 0)
-        if self.control.moveRight:
-            self.player.head.rect.move_ip(self.control.moverate, 0)
+        if self.control.rotateLeft:
+            self.player.head.rotation = (self.player.head.rotation + 5) %360
+        if self.control.rotateRight:
+            self.player.head.rotation = (self.player.head.rotation - 5) %360
         if self.control.moveUp:
-            self.player.head.rect.move_ip(0, -self.control.moverate)
-        if self.control.moveDown:
-            self.player.head.rect.move_ip(0, self.control.moverate)       
-       
+            if (self.player.head.rotation - 5) %360 <= 45 or (self.player.head.rotation - 5) %360 > 315:
+                self.player.head.rect.move_ip(self.control.moverate, 0)
+            if (self.player.head.rotation - 5) %360 <= 135 and (self.player.head.rotation - 5) %360 > 45:
+                self.player.head.rect.move_ip(0, -self.control.moverate)
+            if (self.player.head.rotation - 5) %360 <= 225 and (self.player.head.rotation - 5) %360 > 135:
+                self.player.head.rect.move_ip(-self.control.moverate, 0)
+            if (self.player.head.rotation - 5) %360 <= 315 and (self.player.head.rotation - 5) %360 > 225:
+                self.player.head.rect.move_ip(0, self.control.moverate)
+                
         #Update Countdown Timer
         self.timer.Milli -= delta
         self.timer.update()        
