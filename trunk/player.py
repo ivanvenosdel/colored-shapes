@@ -18,6 +18,10 @@ class Player:
         self.graphics.add_player_shape(self.head)
         self.head.rect.move_ip(512, 384)
         self.total_size = 1;
+        self.greendudes = 0
+        self.purpledudes = 0
+        self.yellowdudes = 0
+        self.whitedudes = 0
         
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
@@ -127,7 +131,19 @@ class Player:
                     self.total_size -= 4  
                 elif shape.size == 128:
                     self.total_size -= 5  
+                    
                 if self.total_size < 1: self.total_size = 1 #sanity
+                
+                #Adjust Powerup
+                if (shape.color == "green"):
+                    self.greendudes -= 1 
+                elif shape.color == "purple":
+                   self.purpledudes -= 1  
+                if (shape.color == "yellow"):
+                   self.yellowdudes -= 1
+                elif shape.color == "white":
+                   self.whitedudes -= 1   
+                    
                 return shape
         
     def attach_shape(self, shape):
@@ -162,7 +178,14 @@ class Player:
             self.total_size += 5           
         
         #Adjust Powerup
-        #if (shape.
+        if (shape.color == "green"):
+            self.greendudes += 1
+        elif shape.color == "purple":
+            self.purpledudes += 1  
+        if (shape.color == "yellow"):
+            self.yellowdudes += 1
+        elif shape.color == "white":
+            self.whitedudes += 1  
         
         #Tell Graphics
         self.graphics.add_player_shape(shape) 

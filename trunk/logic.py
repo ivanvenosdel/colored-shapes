@@ -36,17 +36,20 @@ class Logic:
                     shape.rect = head.rect.copy()
                     shape.rect.move_ip(-globalvars.GLOBAL_DELTA_X, -globalvars.GLOBAL_DELTA_Y)   
                     shape.rotatation = shape.parent.rotation
+
+        speed = self.playerspeed + self.player.greendudes - self.player.yellowdudes
+        rot = 5 + self.player.purpledudes - self.player.whitedudes
         
         #Handle Input
         if self.control.rotateLeft and self.control.moveUp:
-            self.player.head.rotation = (self.player.head.rotation + 5) %360
+            self.player.head.rotation = (self.player.head.rotation + rot) %360
             self.player.head.rotate_direction(self.player.head.rotation)
         elif self.control.rotateRight and self.control.moveUp:
-            self.player.head.rotation = (self.player.head.rotation - 5) %360
+            self.player.head.rotation = (self.player.head.rotation - rot) %360
             self.player.head.rotate_direction(self.player.head.rotation)
         if self.control.moveUp:
-            self.driftx = self.player.head.directionx*self.playerspeed
-            self.drifty = -self.player.head.directiony*self.playerspeed
+            self.driftx = self.player.head.directionx * speed
+            self.drifty = -self.player.head.directiony * speed
 
             globalvars.GLOBAL_DELTA_X = self.driftx
             globalvars.GLOBAL_DELTA_Y = self.drifty
