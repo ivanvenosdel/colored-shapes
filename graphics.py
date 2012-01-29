@@ -2,6 +2,7 @@ import pygame
 
 import imageutils
 
+
 class Graphics:
     def __init__(self, player, world, scoreboard, timer):
         self.player = player
