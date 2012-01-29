@@ -16,8 +16,8 @@ class Graphics:
         self.enemy_layer = pygame.sprite.RenderPlain()
         
     def update(self, screen, delta):
-        self.player_layer.update(delta)  
-        self.enemy_layer.update(delta)        
+        self.player_layer.update(delta)
+        self.enemy_layer.update(delta)
               
     def draw(self, screen, delta):
         # Background base
@@ -46,3 +46,4 @@ class Graphics:
     def remove_enemy_shape(self, shape):
         if self.enemy_layer.has(shape):
             self.enemy_layer.remove(shape)            
+            
