@@ -54,6 +54,13 @@ class Logic:
                     self.drifty = 0       
          
             self.player.head.rect.move_ip(self.driftx, self.drifty)
+            
+        #Update Countdown Timer
+        self.timer.Milli -= delta
+        self.timer.update()        
+
+        #Update score value
+        self.scoreboard.update()
         
         #Collisions
         for player_piece in self.player.get_render_list():
@@ -66,15 +73,11 @@ class Logic:
                                 self.timer.add_seconds(15)
                                 self.scoreboard.plusscore(enemy.pointvalue)
                         else:
-                            pass   #HURT PLAYER
+                            self.player.kill_shape(player_piece)
+                            return
                         break #do one collision per shape a frame
                     
-        #Update Countdown Timer
-        self.timer.Milli -= delta
-        self.timer.update()        
-
-        #Update score value
-        self.scoreboard.update()
+        
         
       
     
