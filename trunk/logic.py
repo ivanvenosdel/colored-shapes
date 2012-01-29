@@ -57,7 +57,7 @@ class Logic:
                 self.drifty += 1  
                 if self.drifty > 0:
                     self.drifty = 0       
-                    
+               
             globalvars.GLOBAL_DELTA_X = self.driftx
             globalvars.GLOBAL_DELTA_Y = self.drifty
             
@@ -70,7 +70,10 @@ class Logic:
             
         #Update Countdown Timer
         self.timer.Milli -= delta
-        self.timer.update()        
+        self.timer.update()
+        if self.timer.Milli <= (0):
+            pygame.quit()
+            
 
         #Update score value
         self.scoreboard.update()
