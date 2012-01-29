@@ -107,6 +107,9 @@ class Player:
                     if shape_id in attached_shapes:
                         self.shape_graph[referencing_shape_id].remove(shape_id)
                 
+                #Orphane the little guy :(
+                shape.parent = None
+                        
                 #Tell Graphics
                 self.graphics.remove_player_shape(shape) 
                 self.graphics.add_enemy_shape(shape)
