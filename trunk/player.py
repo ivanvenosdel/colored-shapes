@@ -79,9 +79,11 @@ class Player:
         return None
     
     def kill_shape(self, dead_shape):
-        if type(dead_shape) is Head or len(self.attached_shapes) <= 1:
-           globalvars.run_game = False
-           return
+        print 'Kill Shape called. Shape: %s, Invincible: %s' % (dead_shape, self.invincible)
+
+        if type(dead_shape) is Head and len(self.attached_shapes) <= 1:
+            globalvars.run_game = False
+            return
         
         while type(dead_shape) is Head:
             dead_shape_id = random.choice(self.attached_shapes.keys())
@@ -107,7 +109,7 @@ class Player:
                 
                 #Tell Graphics
                 self.graphics.remove_player_shape(shape) 
-                #self.graphics.add_enemy_shape(shape)
+                self.graphics.add_enemy_shape(shape)
                 
                 if shape.size == 20:
                     self.total_size -= 1
