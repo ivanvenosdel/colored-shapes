@@ -36,4 +36,4 @@ class Player():
         render_list = self.attached_shapes.values()
         render_list.append(self.head)
         return render_list
-        
+    
