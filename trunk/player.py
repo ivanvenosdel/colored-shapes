@@ -91,12 +91,12 @@ class Player:
                     finish_him = True
             if finish_him:
                 del self.attached_shapes[shape_id]
-                #Update anyone referencing it
-                for attached_shapes in deepcopy(self.shape_graph[shape_id]):
-                    if dead_shape_id in attached_shapes:
-                        self.shape_graph[shape_id].remove(dead_shape_id)
                 #Delete it's references
                 del self.shape_graph[shape_id]
+                #Update anyone referencing it
+                for referencing_shape_id, attached_shapes in deepcopy(self.shape_graph.items()):
+                    if shape_id in attached_shapes:
+                        self.shape_graph[referencing_shape_id].remove(shape_id)
                 
                 #Tell Graphics
                 self.graphics.remove_player_shape(shape) 
