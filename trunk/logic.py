@@ -11,7 +11,7 @@ import os
 import imageutils
 
 class Logic:
-    def __init__(self, player, world, scoreboard, timer, control):
+    def __init__(self, player, world, graphics, scoreboard, timer, control):
         self.player = player
         self.world = world
         self.scoreboard = scoreboard
@@ -20,6 +20,7 @@ class Logic:
         self.playerspeed = 10
         self.crash = os.path.join('data', "crash.wav")
         self.slurp = os.path.join('data', "slurp.wav")
+        self.graphics = graphics
         
         self.driftx = 0
         self.drifty = 0
@@ -73,8 +74,15 @@ class Logic:
             
         if globalvars.GLOBAL_DELTA_X != 0 or globalvars.GLOBAL_DELTA_Y != 0: 
             #update ai positions
+            deadenemies = []
             for enemy in self.world.enemies.values():
                 enemy.rect.move_ip(-globalvars.GLOBAL_DELTA_X, -globalvars.GLOBAL_DELTA_Y)
+                if enemy.rect.x > 1224 or enemy.rect.x < -200 or enemy.rect.y > 968 or enemy.rect.y < -200:
+                    deadenemies.append(enemy)
+            for enemy in deadenemies:
+                if enemy in self.world.enemies:
+                    self.world.enemies.remove(enemy)
+                    self.graphics.remove_enemy_shape(enemy)
             
         #Update Countdown Timer
         self.timer.Milli -= delta

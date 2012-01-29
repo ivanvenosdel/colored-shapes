@@ -170,8 +170,9 @@ class World:
         
     def __get_random_pos(self):
         r = random.randint(0, 6) 
-        
-        x = random.randint(-100, 1024+100) 
-        y = random.randint(-100, 768+100)
-
+        x = 0
+        y = 0
+        while (x == 0 or (x < 640 and x > 384)) and (y == 0 or (y < 512 and y > 256)):
+            x = random.randint(-100, 1024+100) 
+            y = random.randint(-100, 768+100)
         return (x,y)
