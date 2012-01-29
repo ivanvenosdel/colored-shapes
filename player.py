@@ -7,6 +7,7 @@ from actors import Head, Tri
 from vector2 import Vector2
 
 import globalvars
+import imageutils
 
 class Player:
     
@@ -23,14 +24,14 @@ class Player:
         self.attached_shapes = {self.head.id: self.head}
         
         self.invincible = False
-        self.invincible_rate = 800
+        self.invincible_rate = 1200
         self.invincible_timer = self.invincible_rate
         
     def update(self, delta):
         if self.invincible:
             self.invincible_timer -= delta
             if self.invincible_timer <= 0: 
-                self.invincible = False
+                self.set_invis(False)
            
     def __get_open_shapes(self):
         open_shape_ids = []
@@ -47,7 +48,7 @@ class Player:
         #shape.rect.move(shape_vector.x - (shape.rect.width + leaf_shape.rect.width), shape_vector.y - (shape.rect.height + leaf_shape.rect.height))
         
         shape.rect = leaf_shape.rect.copy()
-        #shape.rect.move_ip(-globalvars.GLOBAL_DELTA_X * leaf_shape., -globalvars.GLOBAL_DELTA_Y)   
+        shape.rect.move_ip(-globalvars.GLOBAL_DELTA_X * (leaf_shape.rect.width/2 - shape.rect.width/2), -globalvars.GLOBAL_DELTA_Y * (leaf_shape.rect.height/2 - shape.rect.height/2))   
         shape.rotation = leaf_shape.rotation;
         
         
@@ -84,6 +85,7 @@ class Player:
 
         if type(dead_shape) is Head and len(self.attached_shapes) <= 1:
             globalvars.run_game = False
+            globalvars.failed = True
             return dead_shape
         
         while type(dead_shape) is Head:
@@ -169,4 +171,16 @@ class Player:
         render_list = self.attached_shapes.values()
         render_list.append(self.head)
         return render_list
+    
+    def set_invis(self, is_invis):
+        if is_invis:
+            self.invincible = True
+            self.invincible_timer = self.invincible_rate 
+            self.head.image = pygame.transform.scale(self.head.getfile("head_trans.png"), (self.head.size, self.head.size))
+            self.head.original = self.head.image;
+        else:
+            self.invincible = False
+            self.invincible_timer = 0
+            self.head.image = pygame.transform.scale(self.head.getfile("head.png"), (self.head.size, self.head.size))
+            self.head.original = self.head.image;
     

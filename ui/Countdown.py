@@ -18,6 +18,7 @@ class CountDown:
             self.Seconds = 0
             self.Minutes = 0
             globalvars.run_game = False
+            globalvars.failed = True
         elif(self.Seconds <= 0):
             self.Seconds = 60
             self.Minutes -= 1

@@ -79,8 +79,7 @@ class Logic:
         #Update Countdown Timer
         self.timer.Milli -= delta
         self.timer.update()
-            
-
+        
         #Update score value
         self.scoreboard.update()
         
@@ -100,9 +99,8 @@ class Logic:
                         elif not self.player.invincible:
                             player_piece = self.player.kill_shape(player_piece)
                             self.world.add_enemy_shape(player_piece)
-                            self.player.invincible = True
-                            self.player.invincible_timer = self.player.invincible_rate
                             pygame.mixer.Sound(self.crash).play()
+                            self.player.set_invis(True)
                             return
                         break #do one collision per shape a frame
 
