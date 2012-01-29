@@ -46,3 +46,6 @@ class CountDown:
             
     def add_seconds(self, delta):
         self.Seconds += delta
+        if self.Seconds > 15:
+           self.Seconds = 15 
+           

@@ -7,7 +7,7 @@ class World:
         self.graphics = graphics;
         self.player = player
         self.enemies = {}
-        self.spawn_rate = 3000
+        self.spawn_rate = 1500
         self.spawn_timer = self.spawn_rate
 
     def update(self, delta):
@@ -16,7 +16,6 @@ class World:
         if self.spawn_timer <= 0:
             self.spawn_timer = self.spawn_rate
             # Chance for a new enemy
-            #if random.randint(0, 8) == 0:
             self.add_enemy(self.__get_random_shape(), self.__get_random_size(), self.__get_random_rot(), self.__get_random_color(), self.__get_random_pos())
         
         pass   
@@ -69,17 +68,81 @@ class World:
             return "tri"       
         
     def __get_random_size(self):
-        x = random.randint(0, 4)
-        if x == 0:
-            return 20
-        elif x == 1:
-            return 40        
-        elif x == 2:
-            return 70
-        elif x == 3:
-            return 95
-        else:
-            return 128  
+        if self.player.total_size < 32:
+            x = random.randint(0, 4)
+            if x == 0:
+                return 20
+            elif x == 1:
+                return 20        
+            elif x == 2:
+                return 20
+            elif x == 3:
+                return 40
+            else:
+                return 70
+        elif  self.player.total_size < 40:
+            x = random.randint(0, 4)
+            if x == 0:
+                return 20
+            elif x == 1:
+                return 20        
+            elif x == 2:
+                return 40
+            elif x == 3:
+                return 70
+            else:
+                return 95
+        elif  self.player.total_size < 70:
+            x = random.randint(0, 5)
+            if x == 0:
+                return 20
+            elif x == 1:
+                return 40        
+            elif x == 2:
+                return 40
+            elif x == 3:
+                return 70
+            elif x == 4:
+                return 95
+            else:
+                return 128 
+        elif  self.player.total_size < 95:
+            x = random.randint(0, 4)
+            if x == 0:
+                return 40
+            elif x == 1:
+                return 70       
+            elif x == 2:
+                return 70
+            elif x == 3:
+                return 95
+            else:
+                return 128 
+        elif  self.player.total_size < 128:
+            x = random.randint(0, 5)
+            if x == 0:
+                return 40
+            elif x == 1:
+                return 70       
+            elif x == 2:
+                return 70
+            elif x == 3:
+                return 95
+            elif x == 4:
+                return 95
+            else:
+                return 128 
+        elif  self.player.total_size > 128:
+            x = random.randint(0, 3)
+            if x == 0:
+                return 70
+            elif x == 1:
+                return 90  
+            elif x == 2:
+                return 128
+            else:
+                return 128 
+            
         
     def __get_random_rot(self):
         x = random.randint(0, 6) 
@@ -103,6 +166,6 @@ class World:
         
         #if (
         
-        x = random.randint(-150, 1024+150) 
-        y = random.randint(-150, 768+150)
+        x = random.randint(-100, 1024+100) 
+        y = random.randint(-100, 768+100)
         return (x,y)
