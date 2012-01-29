@@ -22,11 +22,14 @@ class Logic:
         self.slurp = os.path.join('data', "slurp.wav")
         self.graphics = graphics
         
+        self.font = pygame.font.SysFont('stencil', 40)
+        self.color = pygame.Color('White')
+        
         self.driftx = 0
         self.drifty = 0
         
     def update(self, delta):
-        self.player.update(delta)
+        self.player.update(delta)             
         
         #ONLY move the shapes attached to head and not far
         for shape in self.player.get_render_list():
@@ -37,19 +40,19 @@ class Logic:
                     shape.rect.move_ip(-globalvars.GLOBAL_DELTA_X, -globalvars.GLOBAL_DELTA_Y)   
                     shape.rotatation = shape.parent.rotation
 
-        speed = self.playerspeed + self.player.greendudes - self.player.yellowdudes
-        rot = 5 + self.player.purpledudes - self.player.whitedudes
+        self.player.speed = self.speed = self.playerspeed + self.player.greendudes - self.player.yellowdudes
+        self.player.rot = self.rot = 5 + self.player.purpledudes - self.player.whitedudes
         
         #Handle Input
         if self.control.rotateLeft and self.control.moveUp:
-            self.player.head.rotation = (self.player.head.rotation + rot) %360
+            self.player.head.rotation = (self.player.head.rotation + self.rot) %360
             self.player.head.rotate_direction(self.player.head.rotation)
         elif self.control.rotateRight and self.control.moveUp:
-            self.player.head.rotation = (self.player.head.rotation - rot) %360
+            self.player.head.rotation = (self.player.head.rotation - self.rot) %360
             self.player.head.rotate_direction(self.player.head.rotation)
         if self.control.moveUp:
-            self.driftx = self.player.head.directionx * speed
-            self.drifty = -self.player.head.directiony * speed
+            self.driftx = self.player.head.directionx * self.speed
+            self.drifty = -self.player.head.directiony * self.speed
 
             globalvars.GLOBAL_DELTA_X = self.driftx
             globalvars.GLOBAL_DELTA_Y = self.drifty
