@@ -45,7 +45,7 @@ class Logic:
         if self.control.moveUp:
             self.driftx = self.player.head.directionx*self.playerspeed
             self.drifty = -self.player.head.directiony*self.playerspeed
-            #self.player.head.rect.move_ip(self.driftx, self.drifty)
+
             globalvars.GLOBAL_DELTA_X = self.driftx
             globalvars.GLOBAL_DELTA_Y = self.drifty
         elif self.driftx != 0 or self.drifty != 0:
@@ -69,8 +69,6 @@ class Logic:
                
             globalvars.GLOBAL_DELTA_X = self.driftx
             globalvars.GLOBAL_DELTA_Y = self.drifty
-            
-            #self.player.head.rect.move_ip(self.driftx, self.drifty)
             
         if globalvars.GLOBAL_DELTA_X != 0 or globalvars.GLOBAL_DELTA_Y != 0: 
             #update ai positions
@@ -97,7 +95,6 @@ class Logic:
                                     self.timer.add_seconds(15)
                                     self.scoreboard.plusscore(enemy.pointvalue)
                                     pygame.mixer.Sound(self.slurp).play()
-                                    
                             else:
                                 self.player.kill_shape(player_piece)
                                 #self.world.add_enemy_shape(player_piece)
