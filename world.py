@@ -1,4 +1,5 @@
 import random
+import logic
 from actors import *
 from ui import Scoreboard
 
@@ -18,8 +19,6 @@ class World:
             # Chance for a new enemy
             self.add_enemy(self.__get_random_shape(), self.__get_random_size(), self.__get_random_rot(), self.__get_random_color(), self.__get_random_pos())
         
-        pass   
-            
     def create_shape(self, shape_type, size, rotation, color):
         if shape_type == "hexagon":
             return Hexagon(size, rotation, color)

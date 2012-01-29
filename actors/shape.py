@@ -26,7 +26,7 @@ class Shape(Sprite):
         
         self.original = self.image;
         
-        self.bounding = self.rect.inflate(-self.rect.width/2.5, -self.rect.height/2.5)      
+        self.bounding = self.rect.inflate(-self.rect.width/2.25, -self.rect.height/2.25)      
         self.pointvalue = 0
         if shape_type == actors.Octagon.shape_type:
             self.pointvalue = 800
@@ -53,7 +53,7 @@ class Shape(Sprite):
         center = self.rect.center
         self.image = pygame.transform.rotate(self.original, self.rotation)
         self.rect = self.image.get_rect(center=center)
-        self.bounding = self.rect.inflate(-self.rect.width/2.5, -self.rect.height/2.5) 
+        self.bounding = self.rect.inflate(-self.rect.width/2.25, -self.rect.height/2.25) 
         
         self.last_location = (self.rect.x, self.rect.y)
         
