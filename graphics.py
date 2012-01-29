@@ -9,7 +9,7 @@ class Graphics:
         self.timer = timer
         
         # Create empty background
-        x = random.choice([1,2,3,6,7,8,9])
+        x = random.choice([1,2,3,4,6,7,9])
         self.background = imageutils.load_image("BG_%s.png" % x)[0].convert()
         
         # Create Layers
