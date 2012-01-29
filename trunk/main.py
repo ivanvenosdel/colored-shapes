@@ -35,7 +35,7 @@ class Shapescape:
         # Initialize window
         self.screen = pygame.display.set_mode((self.win_width, self.win_height))
         pygame.display.set_caption('Shapescape')
-
+        
         pygame.mouse.set_visible(1)
         
     # Continuesly renders the boid swarm
@@ -47,8 +47,11 @@ class Shapescape:
         self.scoreboard = Scoreboard()
         self.timer = CountDown()
         self.control = Control()
-        self.player = Player()
-
+        self.graphics = Graphics(self.scoreboard, self.timer);
+        self.world = World(self.graphics) 
+        self.player = Player(self.graphics)
+        self.logic = Logic(self.player, self.world, self.scoreboard, self.timer, self.control)
+        
         #TEMP
         #shape1 = self.world.create_shape("tri", 64, 0, "red")
         #shape2 = self.world.create_shape("octagon", 64, 0, "blue")
@@ -59,11 +62,6 @@ class Shapescape:
         #self.player.attach_shape(shape3)
         #self.player.attach_shape(shape4)
         #ENDTEMP
-    
-        self.world = World(self.player)
-
-        self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
-        self.graphics = Graphics(self.player, self.world, self.scoreboard, self.timer);
         
         while do_continue:
             delta = clock.tick(30) # fps
@@ -78,7 +76,7 @@ class Shapescape:
             # Update 
             self.logic.update(delta)
             self.world.update(delta)
-            self.graphics.update(delta)
+            self.graphics.update(self.screen, delta)
             
             # Render
             self.graphics.draw(self.screen, delta);
@@ -86,8 +84,6 @@ class Shapescape:
             pygame.display.flip()        
         
 def main():
-    
-    
     view = Shapescape()
 
     # End game

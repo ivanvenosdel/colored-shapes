@@ -2,14 +2,14 @@ from actors import *
 from ui import Scoreboard
 
 class World:
-    def __init__(self, player):
+    def __init__(self, graphics):
+        self.graphics = graphics;
         self.enemies = {}
-        self.player = player
-        self.numenemy = 0
-        self.i = 0
-        
+
     def update(self, delta):
-        pass
+        # Update Enemies
+        #for enemy in self.enemies:
+        pass   
         
     def create_shape(self, shape_type, size, rotation, color):
         if shape_type == "hexagon":
@@ -26,15 +26,10 @@ class World:
     def add_enemy(self, shape_type, color, size, rotation):
         shape = self.create_shape(shape_type, size, rotation, color)
         self.enemies[shape.id] = shape
-        self.numenemy += 1
-        
+        self.graphics.add_player_shape(shape)
+
     def remove_enemy(self, shapeid):
         if shapeid in self.enemies:
+            self.graphics.remove_player_shape(self.enemies[shapeid])
             del self.enemies[shapeid]
-        
-    def eat_enemy(self):
-        while self.i < self.numenemy:
-            self.ate = pygame.sprite.collide_rect(self.player, self.enemies[self.i])
-            if self.ate:
-                pass
-            self.i += 1
+            

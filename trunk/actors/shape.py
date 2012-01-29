@@ -47,8 +47,6 @@ class Shape(Sprite):
         radians = math.radians(angle_degrees)
         cos = math.cos(radians)
         sin = math.sin(radians)
-        #x = self.directionx*cos - self.directiony*sin
-        #y = self.directionx*sin + self.directiony*cos
         x = cos
         y = sin
         self.directionx = x
