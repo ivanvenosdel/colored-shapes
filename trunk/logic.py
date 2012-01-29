@@ -13,6 +13,9 @@ class Logic:
         self.control = control
         self.playerspeed = 10
         
+        self.driftx = 0
+        self.drifty = 0
+        
     def update(self, delta):
         #Move player shapes from last head move
         for shape in self.player.get_render_list():
@@ -28,7 +31,29 @@ class Logic:
             self.player.head.rotation = (self.player.head.rotation - 5) %360
             self.player.head.rotate_direction(self.player.head.rotation)
         if self.control.moveUp:
-            self.player.head.rect.move_ip(self.player.head.directionx*self.playerspeed, -self.player.head.directiony*self.playerspeed)
+            self.driftx = self.player.head.directionx*self.playerspeed
+            self.drifty = -self.player.head.directiony*self.playerspeed
+            self.player.head.rect.move_ip(self.driftx, self.drifty)
+        elif self.driftx != 0 or self.drifty != 0:
+            if self.driftx > 0:
+                self.driftx -= 1
+                if self.driftx < 0:
+                    self.driftx = 0
+            elif self.driftx < 0:
+                self.driftx += 1
+                if self.driftx > 0:
+                    self.driftx = 0
+                
+            if self.drifty > 0:
+                self.drifty -= 1
+                if self.drifty < 0:
+                    self.drifty = 0                
+            elif self.drifty < 0:
+                self.drifty += 1  
+                if self.drifty > 0:
+                    self.drifty = 0       
+         
+            self.player.head.rect.move_ip(self.driftx, self.drifty)
         
         #Collisions
         for player_piece in self.player.get_render_list():
