@@ -12,17 +12,13 @@ class Logic:
         self.timer = timer
         self.control = control
         self.playerspeed = 10
-        self.last_player_vector = None
         
     def update(self, delta):
         #Move player shapes from last head move
-        if self.last_player_vector:
-            for shape in self.player.get_render_list():
-                if type(shape) is not Head:
-                    shape.rect.move_ip(self.last_player_vector.x, self.last_player_vector.y)
-                
-        start_head_x = self.player.head.rect.x
-        start_head_y = self.player.head.rect.y
+        for shape in self.player.get_render_list():
+            if type(shape) is not Head:
+                if shape.parent.last_vector:
+                    shape.rect.move_ip(shape.parent.last_vector.x, shape.parent.last_vector.y)
         
         #Handle Input
         if self.control.rotateLeft and self.control.moveUp:
@@ -33,10 +29,6 @@ class Logic:
             self.player.head.rotate_direction(self.player.head.rotation)
         if self.control.moveUp:
             self.player.head.rect.move_ip(self.player.head.directionx*self.playerspeed, -self.player.head.directiony*self.playerspeed)
-        
-        end_head_x = self.player.head.rect.x
-        end_head_y = self.player.head.rect.y
-        self.last_player_vector = Vector2.from_points((start_head_x, start_head_y), (end_head_x, end_head_y))
         
         #Collisions
         for player_piece in self.player.get_render_list():

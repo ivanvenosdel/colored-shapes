@@ -8,6 +8,8 @@ import actors
 from actors import *
 import imageutils
 
+from vector2 import Vector2
+
 class Shape(Sprite):
     loaded_images = {}
 
@@ -39,11 +41,20 @@ class Shape(Sprite):
         self.directionx = 1
         self.directiony = 0
         
+        self.last_location = None
+        self.last_vector = None
+        self.parent = None
+        
     def update(self, delta):
+        if self.last_location:
+            self.last_vector = Vector2.from_points(self.last_location, (self.rect.x, self.rect.y))
+        
         center = self.rect.center
         self.image = pygame.transform.rotate(self.original, self.rotation)
         self.rect = self.image.get_rect(center=center)
         self.bounding = self.rect.inflate(-self.rect.width/3, -self.rect.height/3) 
+        
+        self.last_location = (self.rect.x, self.rect.y)
         
     def getfile(self, texture_path):
         if texture_path in Shape.loaded_images:
