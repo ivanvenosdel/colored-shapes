@@ -77,20 +77,19 @@ class Player:
         
         shape_ids = self.attached_shapes.keys()
         for shape_id in shape_ids:
+            finish_him = False
+            shape = self.attached_shapes[shape_id]
             if shape_id == dead_shape.id:
+                finish_him = True
+            else:
+                if shape.parent and shape.parent.id == dead_shape.id:
+                    finish_him = True
+            if finish_him:
                 del self.attached_shapes[shape_id]
                 del self.shape_graph[shape_id]
                 #Tell Graphics
                 self.graphics.remove_player_shape(shape) 
                 self.graphics.add_enemy_shape(shape)
-            else:
-                shape = self.attached_shapes[shape_id]
-                if shape.parent and shape.parent.id == dead_shape.id:
-                    del self.attached_shapes[shape_id]
-                    del self.shape_graph[shape_id]
-                    #Tell Graphics
-                    self.graphics.remove_player_shape(shape) 
-                    self.graphics.add_enemy_shape(shape)
         
     def attach_shape(self, shape):
         open_shape_ids = self.__get_open_shapes()
