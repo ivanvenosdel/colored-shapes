@@ -37,6 +37,7 @@ class Player:
         self.invincible = False
         self.invincible_rate = 1200
         self.invincible_timer = self.invincible_rate
+        self.size_change = False
         
     def update(self, delta):
         if self.invincible:
@@ -142,16 +143,17 @@ class Player:
                     self.total_size -= 5  
                     
                 if self.total_size < 1: self.total_size = 1 #sanity
+                self.size_change = True
                 
                 #Adjust Powerup
                 if (shape.color == "green"):
                     self.greendudes -= 1 
                 elif shape.color == "purple":
-                   self.purpledudes -= 1  
+                    self.purpledudes -= 1  
                 if (shape.color == "yellow"):
-                   self.yellowdudes -= 1
+                    self.yellowdudes -= 1
                 elif shape.color == "white":
-                   self.whitedudes -= 1   
+                    self.whitedudes -= 1   
                     
                 return shape
         
@@ -185,6 +187,7 @@ class Player:
             self.total_size += 4  
         elif shape.size == 128:
             self.total_size += 5           
+        self.size_change = True
         
         #Adjust Powerup
         if (shape.color == "green"):

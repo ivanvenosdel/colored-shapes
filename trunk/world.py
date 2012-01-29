@@ -8,17 +8,17 @@ class World:
         self.graphics = graphics;
         self.player = player
         self.enemies = {}
-        self.spawn_rate = 1500
-        self.spawn_timer = self.spawn_rate
+        self.spawn_timer = 50
 
     def update(self, delta):
         # Generate new enemies
         self.spawn_timer -= delta
         if self.spawn_timer <= 0:
-            self.spawn_timer = self.spawn_rate
+            self.spawn_timer = random.randint(800, 1200)
             # Chance for a new enemy
             self.add_enemy(self.__get_random_shape(), self.__get_random_size(), self.__get_random_rot(), self.__get_random_color(), 
                            self.__get_random_pos())
+            self.player.size_change = True #missuse of this variable, but we need to update the image to reflect if you can use it
         
     def create_shape(self, shape_type, size, rotation, color):
         if shape_type == "hexagon":
