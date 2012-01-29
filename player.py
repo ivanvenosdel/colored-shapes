@@ -6,8 +6,11 @@ from vector2 import Vector2
 
 class Player:
     
-    def __init__(self):
+    def __init__(self, graphics):  
+        self.graphics = graphics
+        
         self.head = Head(64, 0)
+        self.graphics.add_player_shape(self.head)
         #Graph of each shape id and the ids of the shapes connected to it
         self.shape_graph = {self.head.id: []}
         self.attached_shapes = {self.head.id: self.head}
@@ -69,6 +72,11 @@ class Player:
         #Really? Ok, screw it, just pick an open shape at random
         open_shape = random.choice(open_shape_ids)
         self.__add_shape(shape, open_shape.id)
+        
+        #Tell Graphics
+        self.graphics.add_player_shape(shape) 
+        self.graphics.remove_enemy_shape(shape)        
+
         return
         
     def get_render_list(self):
