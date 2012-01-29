@@ -26,13 +26,16 @@ class Shapescape:
         self.win_height = 768
         pygame.init()
         self.init_window()
+        
+        #title screen
         title_screen = TitleScreen(self.screen)
         title_screen.do_loop()
-        try:
-            self.game_loop()
-        except globalvars.GameOver:
-            gameover_screen = GameOver(self.screen)
-            gameover_screen.do_loop()
+
+        self.game_loop()
+        
+        #gameover screen
+        gameover_screen = GameOver(self.screen)
+        gameover_screen.do_loop()
     
     # Prepares the boid view
     def init_window(self): 
@@ -45,7 +48,6 @@ class Shapescape:
     # Continuesly renders the boid swarm
     def game_loop(self):
         clock = pygame.time.Clock()
-        do_continue = True
 
         #Initialize
         self.scoreboard = Scoreboard()
@@ -56,18 +58,7 @@ class Shapescape:
         self.world = World(self.graphics, self.player) 
         self.logic = Logic(self.player, self.world, self.scoreboard, self.timer, self.control)
         
-        #TEMP
-        #shape1 = self.world.create_shape("tri", 64, 400, "red")
-        #shape2 = self.world.create_shape("octagon", 64, 0, "blue")
-        #shape3 = self.world.create_shape("square", 64, 0, "red")
-        #shape4 = self.world.create_shape("tri", 64, 0, "blue")
-        #self.player.attach_shape(shape1)
-        #self.player.attach_shape(shape2)
-        #self.player.attach_shape(shape3)
-        #self.player.attach_shape(shape4)
-        #ENDTEMP
-        
-        while do_continue:
+        while globalvars.run_game:
             delta = clock.tick(30) # fps
 
             # Catch input event

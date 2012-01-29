@@ -43,8 +43,14 @@ class Player:
         leaf_shape = self.attached_shapes[leaf_id]
         
         #Create a vector between the two shapes to figure out how to move it to it but without collision
-        shape_vector = Vector2.from_points((shape.rect.x, shape.rect.y), (leaf_shape.rect.x, leaf_shape.rect.y))
-        shape.rect.move(shape_vector.x - (shape.rect.width + leaf_shape.rect.width), shape_vector.y - (shape.rect.height + leaf_shape.rect.height))
+        #shape_vector = Vector2.from_points((shape.rect.x, shape.rect.y), (leaf_shape.rect.x, leaf_shape.rect.y))
+        #shape.rect.move(shape_vector.x - (shape.rect.width + leaf_shape.rect.width), shape_vector.y - (shape.rect.height + leaf_shape.rect.height))
+        
+        shape.rect = leaf_shape.rect.copy()
+        #shape.rect.move_ip(-globalvars.GLOBAL_DELTA_X * leaf_shape., -globalvars.GLOBAL_DELTA_Y)   
+        shape.rotation = leaf_shape.rotation;
+        
+        
         
         self.attached_shapes[shape.id] = shape
         self.shape_graph[shape.id] = [leaf_id]
@@ -74,7 +80,8 @@ class Player:
     
     def kill_shape(self, dead_shape):
         if type(dead_shape) is Head or len(self.attached_shapes) <= 1:
-            raise globalvars.GameOver
+           globalvars.run_game = False
+           return
         
         while type(dead_shape) is Head:
             dead_shape_id = random.choice(self.attached_shapes.keys())
