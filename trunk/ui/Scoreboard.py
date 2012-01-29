@@ -16,3 +16,7 @@ class Scoreboard:
             self.lastscore = self.currentscore
             msg = "Score: %d" % self.currentscore
             self.image = self.font.render(msg, 0, self.color)
+    
+    def plusscore(self, SCORE):
+        self.currentscore += SCORE
+        self.update()

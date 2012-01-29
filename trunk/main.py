@@ -42,8 +42,8 @@ class Shapescape:
         self.scoreboard = Scoreboard()
         self.timer = CountDown()
         self.control = Control()
-        self.world = World()
         self.player = Player()
+        self.world = World(self.player)
         self.logic = Logic(self.player, self.scoreboard, self.timer, self.control)
         self.graphics = Graphics(self.player, self.world, self.scoreboard, self.timer);
         
