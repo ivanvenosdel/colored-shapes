@@ -84,25 +84,24 @@ class Logic:
         self.scoreboard.update()
         
         #Collisions
-        if not self.player.invincible:
-            for player_piece in self.player.get_render_list():
-                    for enemy in self.world.enemies.values():
-                        if player_piece.bounding.colliderect(enemy.bounding):
-                            if self.player.total_size >= enemy.size or enemy.size == 20:
-                                if type(player_piece) is Head:
-                                    self.world.remove_enemy(enemy.id)
-                                    self.player.attach_shape(enemy)
-                                    self.timer.add_seconds(15)
-                                    self.scoreboard.plusscore(enemy.pointvalue)
-                                    pygame.mixer.Sound(self.slurp).play()
-                            else:
-                                self.player.kill_shape(player_piece)
-                                self.world.add_enemy_shape(player_piece)
-                                self.player.invincible = True
-                                self.player.invincible_timer = self.player.invincible_rate
-                                pygame.mixer.Sound(self.crash).play()
-                                return
-                            break #do one collision per shape a frame
+        for player_piece in self.player.get_render_list():
+                for enemy in self.world.enemies.values():
+                    if player_piece.bounding.colliderect(enemy.bounding):
+                        if self.player.total_size >= enemy.size or enemy.size == 20:
+                            if type(player_piece) is Head:
+                                self.world.remove_enemy(enemy.id)
+                                self.player.attach_shape(enemy)
+                                self.timer.add_seconds(15)
+                                self.scoreboard.plusscore(enemy.pointvalue)
+                                pygame.mixer.Sound(self.slurp).play()
+                        elif not self.player.invincible:
+                            self.player.kill_shape(player_piece)
+                            self.world.add_enemy_shape(player_piece)
+                            self.player.invincible = True
+                            self.player.invincible_timer = self.player.invincible_rate
+                            pygame.mixer.Sound(self.crash).play()
+                            return
+                        break #do one collision per shape a frame
 
                     
         
