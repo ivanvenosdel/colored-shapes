@@ -16,6 +16,7 @@ import imageutils
 import globalvars
 
 from ui.titlescreen import TitleScreen
+from ui.gameoverscreen import GameOver
 
 
 class Shapescape:
@@ -30,8 +31,8 @@ class Shapescape:
         try:
             self.game_loop()
         except globalvars.GameOver:
-            #TODO: Show game over screen
-            pass
+            gameover_screen = GameOver(self.screen)
+            gameover_screen.do_loop()
     
     # Prepares the boid view
     def init_window(self): 
